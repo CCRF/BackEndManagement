@@ -1,5 +1,4 @@
 package cn.eud.guet.backendmanagement.bean;
 
-public class Test {
-    private int id;
+public class Test2 {
 }
