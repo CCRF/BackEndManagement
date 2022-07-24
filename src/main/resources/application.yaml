@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: lxj123456
+    url: jdbc:mysql://120.79.223.83:3306/wxshop?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
