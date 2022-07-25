@@ -1,4 +1,4 @@
-package cn.eud.guet.backendmanagement.controller;
+package cn.edu.guet.backendmanagement.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
