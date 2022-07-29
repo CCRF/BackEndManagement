@@ -23,4 +23,43 @@
         from sys_user u
         where u.name = #{name,jdbcType=VARCHAR}
     </select>
+
+    <select id="findAllUser" resultType="cn.edu.guet.backendmanagement.bean.SysUser">
+        SELECT * FROM sys_user where del_flag!=-1
+    </select>
+
+<!--    <delete id="deleteUserById">-->
+<!--        delete from sys_user where id = #{id};-->
+<!--    </delete>-->
+    <update id="deleteUserById">
+        update sys_user set del_flag=-1 where id=#{id}
+    </update>
+    
+    <update id="updateUser">
+        update sys_user
+        set id = #{id}, name = #{name},
+            nick_name = #{nickName},avatar=#{avatar},
+            password=#{password},salt=#{salt},
+            email=#{email}, mobile =#{mobile},
+            status =#{status},dept_id=#{deptId},
+            create_by="admin",create_time=#{nowTime},
+            last_update_by="admin",last_update_time=#{nowTime},
+            del_flag=#{delFlag}
+        where id = #{id}
+    </update>
+
+    <insert id="insertUser">
+        insert into sys_user(id,name,nick_name,avatar,password,salt,email,mobile,status,dept_id,create_by,create_time,last_update_by,last_update_time,del_flag)
+        values (#{id},#{name},#{nickName},#{avatar},#{password},#{salt},#{email},#{mobile},#{status},#{deptId},admin,#{nowTime},admin,#{nowTime},#{delFlag})
+    </insert>
+
+    <select id="findUserById" resultType="cn.edu.guet.backendmanagement.bean.SysUser">
+        SELECT * FROM sys_user where del_flag!=-1 and id=#{id}
+    </select>
+
+    <select id="findUserByMsg" resultType="cn.edu.guet.backendmanagement.bean.SysUser">
+        SELECT * FROM sys_user
+        WHERE CONCAT(IFNULL(name,''),IFNULL(nick_name,''),IFNULL(id,''),IFNULL(email,''),IFNULL(mobile,''))
+                  LIKE #{msgs}
+    </select>
 </mapper>

@@ -33,6 +33,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysMenuService sysMenuService;
 
+
     @Override
     public SysUser findByName(String name) {
         SysUser sysUser = sysUserMapper.findByName(name);
@@ -64,6 +65,49 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public List<SysUserRole> findUserRoles(Long userId) {
         return sysUserRoleMapper.findUserRoles(userId);
+    }
+
+    @Override
+    public List<SysUser> findAllUser() {
+
+        return sysUserMapper.findAllUser();
+    }
+
+    @Override
+    public boolean deleteUserById(String id) {
+        if(sysUserMapper.deleteUserById(id)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateUser(SysUser sysUser) {
+        if(sysUserMapper.updateUser(sysUser)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean insertUser(SysUser sysUser) {
+        if(sysUserMapper.insertUser(sysUser)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public List<SysUser> findUserById(String id) {
+        return sysUserMapper.findUserById(id);
+    }
+
+    @Override
+    public List<SysUser> findUserByMsg(String msg) {
+        return sysUserMapper.findUserByMsg(msg);
     }
 
     @Override

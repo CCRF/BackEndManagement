@@ -25,4 +25,17 @@ public interface SysUserService {
     SysUser findByName(String username);
 
     List<SysUserRole> findUserRoles(Long userId);
+
+    List<SysUser> findAllUser();
+
+    boolean deleteUserById(String id);
+
+    boolean updateUser(SysUser sysUser);
+
+    boolean insertUser(SysUser sysUser);
+
+    List<SysUser> findUserById(String id);
+
+    List<SysUser> findUserByMsg(String msg);
+
 }
