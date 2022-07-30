@@ -15,6 +15,25 @@
         id
         , name, remark, create_by, create_time, last_update_by, last_update_time, del_flag
     </sql>
+
+
+    <insert id="insertRoleMenu">
+        insert into sys_role_menu(role_id, menu_id)
+        values
+        <foreach collection="menuList" item="menuId" separator="," >
+            (#{id},#{menuId.id})
+        </foreach>
+    </insert>
+
+
+    <select id="updateRoleMenu" resultType="sysMenu">
+        select sys_menu.id from sys_menu where name in
+        <foreach collection="list" item="menuName" separator="," open="(" close=")">
+            #{menuName}
+        </foreach>
+    </select>
+
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -23,7 +42,14 @@
     </select>
     <select id="findAll" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
-        from sys_role
+        <include refid="Base_Column_List"/>
+        from sys_role WHERE del_flag!=-1
+    </select>
+
+
+    <select id="searchMsg" resultType="cn.edu.guet.backendmanagement.bean.SysRole">
+        select * from sys_role
+        where CONCAT(IFNULL(name,''),IFNULL(remark,''))
+                  LIKE #{msg}
     </select>
 </mapper>
