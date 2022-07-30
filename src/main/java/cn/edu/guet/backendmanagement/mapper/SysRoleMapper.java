@@ -8,8 +8,9 @@ import cn.edu.guet.backendmanagement.bean.SysRoleMenu;
 import org.apache.ibatis.annotations.*;
 
 /**
- * @Author Liwei
- * @Date 2021-08-13 17:50
+ * @author zhh
+ * @Date 2022-07-30 11:25
+ * @version 1.0
  */
 @Mapper
 public interface SysRoleMapper {

@@ -11,8 +11,9 @@ import java.util.List;
 /**
  * 角色管理
  *
- * @Author Liwei
- * @Date 2021-08-13 18:04
+ * @author zhh
+ * @Date 2022-07-30 11:25
+ * @version 1.0
  */
 public interface SysRoleService {
 
