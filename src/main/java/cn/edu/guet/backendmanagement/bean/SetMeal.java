@@ -3,9 +3,9 @@ package cn.edu.guet.backendmanagement.bean;
 import lombok.Data;
 
 /**
- * @Author yejian
- * @Date    2022/7/29 23:30
- * version: 1.0
+ * @Author yj
+ * @Date    2022/7/30 19:00
+ * @version: 1.0
  */
 @Data
 public class SetMeal {
