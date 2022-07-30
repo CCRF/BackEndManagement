@@ -13,4 +13,18 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface SysUserMapper {
     SysUser findByName(@Param(value = "name") String name);
+
+    List<SysUser> findAllUser();
+
+    boolean deleteUserById(String id);
+
+    boolean updateUser(SysUser sysUser);
+
+    boolean insertUser(SysUser sysUser);
+
+    List<SysUser> findUserById(String id);
+
+    List<SysUser> findUserByMsg(String msg);
+
+
 }

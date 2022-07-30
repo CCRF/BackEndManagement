@@ -13,6 +13,7 @@ server:
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: cn.edu.guet.backendmanagement.bean
+#  将数据库表的下划线转成驼峰（Mapper）
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true

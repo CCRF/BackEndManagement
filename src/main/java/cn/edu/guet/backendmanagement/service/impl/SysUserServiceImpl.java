@@ -67,6 +67,49 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    public List<SysUser> findAllUser() {
+
+        return sysUserMapper.findAllUser();
+    }
+
+    @Override
+    public boolean deleteUserById(String id) {
+        if(sysUserMapper.deleteUserById(id)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateUser(SysUser sysUser) {
+        if(sysUserMapper.updateUser(sysUser)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean insertUser(SysUser sysUser) {
+        if(sysUserMapper.insertUser(sysUser)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public List<SysUser> findUserById(String id) {
+        return sysUserMapper.findUserById(id);
+    }
+
+    @Override
+    public List<SysUser> findUserByMsg(String msg) {
+        return sysUserMapper.findUserByMsg(msg);
+    }
+
+    @Override
     public Set<String> findPermissions(String userName) {
         System.out.println("获取用户权限菜单: "+userName);
         Set<String> perms = new HashSet<>();

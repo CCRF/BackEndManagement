@@ -11,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -73,13 +72,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        //如果下列没有配置就都会跳转localhost:8080/
-        web.ignoring().antMatchers("/css/**",
-                "/js/**", "/index.html", "/img/**", "/fonts/**", "/favicon.ico");
-        //"/order/**"
     }
 }

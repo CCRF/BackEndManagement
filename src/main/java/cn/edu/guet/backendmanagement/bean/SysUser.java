@@ -28,7 +28,17 @@ public class SysUser extends BaseModel {
     private Long deptId;
 
     private Byte delFlag;
-    
+
+    private String nowTime;
+
+	public String getNowTime() {
+		return nowTime;
+	}
+
+	public void setNowTime(String nowTime) {
+		this.nowTime = nowTime;
+	}
+
     // 非数据库字段
     private String deptName;
     // 非数据库字段
