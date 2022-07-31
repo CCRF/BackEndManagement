@@ -26,5 +26,8 @@ public interface SysUserMapper {
 
     List<SysUser> findUserByMsg(String msg);
 
+    List<SysUser> findUserByName(String name);
+
+
 
 }

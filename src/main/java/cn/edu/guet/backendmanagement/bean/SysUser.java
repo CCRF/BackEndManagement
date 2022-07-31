@@ -29,16 +29,11 @@ public class SysUser extends BaseModel {
 
     private Byte delFlag;
 
+
+	// 非数据库字段
     private String nowTime;
-
-	public String getNowTime() {
-		return nowTime;
-	}
-
-	public void setNowTime(String nowTime) {
-		this.nowTime = nowTime;
-	}
-
+	// 非数据库字段
+    private String roleId;
 	// 非数据库字段
     private String deptName;
     // 非数据库字段
@@ -123,5 +118,16 @@ public class SysUser extends BaseModel {
 	public void setUserRoles(List<SysUserRole> userRoles) {
 		this.userRoles = userRoles;
 	}
-
+	public String getNowTime() {
+		return nowTime;
+	}
+	public void setNowTime(String nowTime) {
+		this.nowTime = nowTime;
+	}
+	public String getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
 }

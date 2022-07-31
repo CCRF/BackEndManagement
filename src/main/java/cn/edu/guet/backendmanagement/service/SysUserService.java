@@ -38,4 +38,6 @@ public interface SysUserService {
 
     List<SysUser> findUserByMsg(String msg);
 
+    List<SysUser> findUserByName(String name);
+
 }
