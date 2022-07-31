@@ -45,21 +45,34 @@
             create_by="admin",create_time=#{nowTime},
             last_update_by="admin",last_update_time=#{nowTime},
             del_flag=#{delFlag}
-        where id = #{id}
+        where id = #{id};
+
+        UPDATE sys_user_role SET role_id=#{roleId}, create_by="admin", create_time=#{nowTime}, last_update_by="admin",last_update_time=#{nowTime} WHERE user_id= #{id};
+
     </update>
 
     <insert id="insertUser">
         insert into sys_user(id,name,nick_name,avatar,password,salt,email,mobile,status,dept_id,create_by,create_time,last_update_by,last_update_time,del_flag)
-        values (#{id},#{name},#{nickName},#{avatar},#{password},#{salt},#{email},#{mobile},#{status},#{deptId},admin,#{nowTime},admin,#{nowTime},#{delFlag})
+        values (#{id},#{name},#{nickName},#{avatar},#{password},#{salt},#{email},#{mobile},#{status},#{deptId},"admin",#{nowTime},"admin",#{nowTime},#{delFlag});
+
+        INSERT INTO sys_user_role(user_id,role_id,create_by,create_time,last_update_by,last_update_time) VALUES (#{id},#{roleId},"admin",#{nowTime},"admin",#{nowTime});
     </insert>
 
     <select id="findUserById" resultType="cn.edu.guet.backendmanagement.bean.SysUser">
-        SELECT * FROM sys_user where del_flag!=-1 and id=#{id}
+        SELECT u.*,s.name roleNames,s.id roleId FROM sys_user u,sys_user_role r,(SELECT id,name FROM sys_role s) as s
+        where del_flag!=-1 and u.id=#{id} and u.id=r.user_id and r.role_id=s.id
+
+
     </select>
 
     <select id="findUserByMsg" resultType="cn.edu.guet.backendmanagement.bean.SysUser">
         SELECT * FROM sys_user
         WHERE CONCAT(IFNULL(name,''),IFNULL(nick_name,''),IFNULL(id,''),IFNULL(email,''),IFNULL(mobile,''))
                   LIKE #{msgs}
+    </select>
+
+    <select id="findUserByName" resultType="cn.edu.guet.backendmanagement.bean.SysRole">
+        SELECT s.name,s.remark FROM sys_user u,sys_user_role r,(SELECT id,name,remark FROM sys_role s) as s
+        where del_flag!=-1 and u.name=#{name} and u.id=r.user_id and r.role_id=s.id
     </select>
 </mapper>
