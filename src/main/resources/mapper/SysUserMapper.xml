@@ -34,7 +34,7 @@
     <update id="deleteUserById">
         update sys_user set del_flag=-1 where id=#{id}
     </update>
-    
+
     <update id="updateUser">
         update sys_user
         set id = #{id}, name = #{name},
