@@ -1,27 +1,116 @@
 package cn.edu.guet.backendmanagement.service.impl;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import cn.edu.guet.backendmanagement.bean.SysMenu;
 import cn.edu.guet.backendmanagement.bean.SysRole;
+import cn.edu.guet.backendmanagement.bean.SysRoleMenu;
+import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.mapper.SysRoleMapper;
 import cn.edu.guet.backendmanagement.service.SysRoleService;
+import cn.edu.guet.backendmanagement.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @Author Liwei
- * @Date 2021-08-13 18:12
+ * @author zhh
+ * @Date 2022-07-30 11:25
+ * @version 1.0
  */
 @Service
-public class SysRoleServiceImpl  implements SysRoleService {
+public class SysRoleServiceImpl implements SysRoleService {
 
-	@Autowired
-	private SysRoleMapper sysRoleMapper;
+    @Autowired
+    private SysRoleMapper sysRoleMapper;
 
-	@Override
-	public List<SysRole> findAll() {
-		return sysRoleMapper.findAll();
-	}
-	
+
+    @Override
+    public List<SysRole> findAll() {
+        return sysRoleMapper.findAll();
+    }
+
+    @Override
+    public HttpResult deleteMsg(Long id) {
+
+        int count1 = sysRoleMapper.count(id);
+
+        if (count1 > 0) {
+            return HttpResult.error("当前角色具有权限，无法删除");
+        }
+
+
+        sysRoleMapper.updateMsg(id);
+        return HttpResult.ok("删除成功");
+    }
+
+    @Override
+    public int addMsg(SysRole sysRole) {
+
+        if (sysRole != null) {
+            sysRole.setDelFlag((byte) 0);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = new Date();
+            sysRole.setCreateTime(date);
+            Authentication authentication = SecurityUtils.getAuthentication();
+            String userName = authentication.getPrincipal().toString();
+            sysRole.setCreateBy(userName);
+        }
+
+
+
+        int row = sysRoleMapper.addMsg(sysRole);
+        return row;
+    }
+
+    @Override
+    public List<SysMenu> getNewMsg(Long id) {
+        return sysRoleMapper.getNewMsg(id);
+    }
+
+    @Override
+    public HttpResult updateName(SysRole sysRole) {
+
+        String userName = sysRole.getName();
+        String remark = sysRole.getRemark();
+        Long id = sysRole.getId();
+
+        sysRoleMapper.updateName(userName, remark, id);
+        return HttpResult.ok();
+    }
+
+    @Override
+    public HttpResult updateRoleMenu(List<String> nameList, Long id) {
+
+
+        List<SysMenu> menuId = sysRoleMapper.updateRoleMenu(nameList);
+
+
+        List<Integer> rows = sysRoleMapper.selectId(id);
+
+        if (rows.size()>0) {
+
+            sysRoleMapper.deleteRoleMenu(id);
+
+            sysRoleMapper.insertRoleMenu(menuId, id);
+
+        } else {
+            sysRoleMapper.insertRoleMenu(menuId, id);
+        }
+
+
+        return HttpResult.ok();
+    }
+
+    @Override
+    public List<SysRole> searchMsg(String msg) {
+        return sysRoleMapper.searchMsg(msg);
+    }
+
 }
