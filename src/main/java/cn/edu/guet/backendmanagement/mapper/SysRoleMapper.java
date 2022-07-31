@@ -1,5 +1,6 @@
 package cn.edu.guet.backendmanagement.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import cn.edu.guet.backendmanagement.bean.SysMenu;
@@ -33,8 +34,8 @@ public interface SysRoleMapper {
     @Select("select m.name from sys_menu as m,sys_role_menu as sm where sm.role_id=#{id} and m.id=sm.menu_id")
     List<SysMenu> getNewMsg(Long id);
 
-    @Update("update sys_role set name=#{userName}, remark=#{remark} where id=#{id}")
-    void updateName(String userName, String remark, Long id);
+    @Update("update sys_role set name=#{userName}, remark=#{remark},last_update_time=#{lastUpdateTime},last_update_by=#{lastUpdateBy} where id=#{id}")
+    void updateName(String userName, String remark, Long id, Date lastUpdateTime,String lastUpdateBy);
 
 
     List<SysMenu> updateRoleMenu(@Param("list") List<String> nameList);

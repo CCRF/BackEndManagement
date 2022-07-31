@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author zhh
- * @Date 2022-07-30 11:25
  * @version 1.0
+ * @Date 2022-07-30 11:25
  */
 @Service
 public class SysRoleServiceImpl implements SysRoleService {
@@ -64,7 +64,6 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
 
 
-
         int row = sysRoleMapper.addMsg(sysRole);
         return row;
     }
@@ -79,9 +78,19 @@ public class SysRoleServiceImpl implements SysRoleService {
 
         String userName = sysRole.getName();
         String remark = sysRole.getRemark();
-        Long id = sysRole.getId();
 
-        sysRoleMapper.updateName(userName, remark, id);
+        Long id = sysRole.getId();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        sysRole.setLastUpdateTime(date);
+        Date lastUpdateTime = sysRole.getLastUpdateTime();
+
+        Authentication authentication = SecurityUtils.getAuthentication();
+        String updateName = authentication.getPrincipal().toString();
+        sysRole.setLastUpdateBy(updateName);
+        String lastUpdateBy = sysRole.getLastUpdateBy();
+
+        sysRoleMapper.updateName(userName, remark, id, lastUpdateTime, lastUpdateBy);
         return HttpResult.ok();
     }
 
@@ -89,19 +98,22 @@ public class SysRoleServiceImpl implements SysRoleService {
     public HttpResult updateRoleMenu(List<String> nameList, Long id) {
 
 
-        List<SysMenu> menuId = sysRoleMapper.updateRoleMenu(nameList);
+        if (nameList.size()>0){
+
+            List<SysMenu> menuId = sysRoleMapper.updateRoleMenu(nameList);
 
 
-        List<Integer> rows = sysRoleMapper.selectId(id);
+            List<Integer> rows = sysRoleMapper.selectId(id);
 
-        if (rows.size()>0) {
+            if (rows.size() > 0) {
 
+                sysRoleMapper.deleteRoleMenu(id);
+
+            }
+            sysRoleMapper.insertRoleMenu(menuId, id);
+
+        }else {
             sysRoleMapper.deleteRoleMenu(id);
-
-            sysRoleMapper.insertRoleMenu(menuId, id);
-
-        } else {
-            sysRoleMapper.insertRoleMenu(menuId, id);
         }
 
 
