@@ -31,7 +31,6 @@ public class SysUserController {
 
     @GetMapping(value = "/findAllUser")
     public List<SysUser> findAllUser(){
-        System.out.println("寻找用户"+sysUserService.findAllUser());
         List<SysUser> sysUsers =sysUserService.findAllUser();
         return sysUsers;
     }
@@ -75,5 +74,10 @@ public class SysUserController {
     public List<SysUser> findUserByMsg(@PathVariable("msg") String msg){
         String msgs="%"+msg+"%";
         return sysUserService.findUserByMsg(msgs);
+    }
+
+    @GetMapping("/findUserByName/{name}")
+    public List<SysUser> findUserByName(@PathVariable("name") String name){
+        return sysUserService.findUserByName(name);
     }
 }
