@@ -2,7 +2,6 @@ package cn.edu.guet.backendmanagement.config;
 
 import cn.edu.guet.backendmanagement.security.JwtAuthenticationFilter;
 import cn.edu.guet.backendmanagement.security.JwtAuthenticationProvider;
-import cn.edu.guet.backendmanagement.security.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -17,10 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import javax.annotation.Resource;
 
 /**
  * Security的自定义各种配置
