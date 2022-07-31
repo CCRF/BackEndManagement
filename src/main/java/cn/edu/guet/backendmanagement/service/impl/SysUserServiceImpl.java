@@ -33,6 +33,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysMenuService sysMenuService;
 
+
     @Override
     public SysUser findByName(String name) {
         SysUser sysUser = sysUserMapper.findByName(name);

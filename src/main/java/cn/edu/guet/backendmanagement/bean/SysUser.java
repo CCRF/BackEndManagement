@@ -39,7 +39,7 @@ public class SysUser extends BaseModel {
 		this.nowTime = nowTime;
 	}
 
-    // 非数据库字段
+	// 非数据库字段
     private String deptName;
     // 非数据库字段
     private String roleNames;
