@@ -1,8 +1,10 @@
 package cn.edu.guet.backendmanagement.controller;
 
-import cn.edu.guet.backendmanagement.bean.Order;
+import cn.edu.guet.backendmanagement.bean.SysOrder;
+import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SysOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,19 +29,22 @@ public class SysOrderController {
     private SysOrderService sysOrderService;
 
     @RequestMapping("/getCurrentOrder")
-    public List<Order> getCurrentOrder() {
-        List<Order> currentOrder = sysOrderService.getCurrentOrder();
-        return currentOrder;
+    @PreAuthorize("hasAuthority('sys:order:view')")
+    public HttpResult getCurrentOrder() {
+        List<SysOrder> currentOrder = sysOrderService.getCurrentOrder();
+        return HttpResult.ok(currentOrder);
     }
 
     @RequestMapping("/getHistoryOrder")
-    public List<Order> getHistoryOrder() {
-        List<Order> historyOrder = sysOrderService.getHistoryOrder();
-        return historyOrder;
+    @PreAuthorize("hasAuthority('sys:order:view')")
+    public HttpResult getHistoryOrder() {
+        List<SysOrder> historyOrder = sysOrderService.getHistoryOrder();
+        return HttpResult.ok(historyOrder);
     }
 
     @PostMapping("/modifyOrder")
-    public Integer modifyOrder(@RequestBody List<Order> order) {
+    @PreAuthorize("hasAuthority('sys:order:edit')")
+    public HttpResult modifyOrder(@RequestBody List<SysOrder> order) {
         AtomicReference<Integer> integer = new AtomicReference<>();
         integer.set(0);
         order.forEach(d -> {
@@ -47,34 +52,36 @@ public class SysOrderController {
                 integer.set(sysOrderService.modifyOrder(d));
             }
         });
-        return integer.get();
+        return HttpResult.ok(integer.get());
     }
 
 
     @PostMapping("/deleteOrder")
-    public List<Order> deleteOrder(@RequestBody Map<String, Object> map) {
+    @PreAuthorize("hasAuthority('sys:order:delete')")
+    public HttpResult deleteOrder(@RequestBody Map<String, Object> map) {
         List orderList = (List) map.get("orderId");
         Integer integer = sysOrderService.deleteOrder(orderList);
         if (integer >= 1)
             if ((Integer) map.get("status") == 1)
-                return sysOrderService.getCurrentOrder();
+                return HttpResult.ok(sysOrderService.getCurrentOrder());
             else
-                return sysOrderService.getHistoryOrder();
-        else return null;
+                return HttpResult.ok(sysOrderService.getHistoryOrder());
+        else return HttpResult.error("删除失败！");
     }
 
     @PostMapping("/insert")
-    public List<Order> insert(@RequestBody Order order) {
-        Integer insert = null;
-        System.out.println(order + "______________________");
+    @PreAuthorize("hasAuthority('sys:order:add')")
+    public HttpResult insert(@RequestBody SysOrder order) {
+        Integer insert;
+//        System.out.println(order + "______________________");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
         order.setStartTime(simpleDateFormat.format(new Date()));
         insert = sysOrderService.insert(order);
         if (insert == 1)
             if (order.getCustomerId().compareTo(new BigInteger("1"))==0)
-                return sysOrderService.getCurrentOrder();
+                return HttpResult.ok(sysOrderService.getCurrentOrder());
             else
-                return sysOrderService.getHistoryOrder();
-        else return null;
+                return HttpResult.ok(sysOrderService.getHistoryOrder());
+        else return HttpResult.error("添加失败！");
     }
 }

@@ -1,6 +1,6 @@
 package cn.edu.guet.backendmanagement.service.impl;
 
-import cn.edu.guet.backendmanagement.bean.Order;
+import cn.edu.guet.backendmanagement.bean.SysOrder;
 import cn.edu.guet.backendmanagement.mapper.SysOrderMapper;
 import cn.edu.guet.backendmanagement.service.SysOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +21,20 @@ public class SysOrderServiceImpl implements SysOrderService {
     @Autowired
     private SysOrderMapper sysOrderMapper;
     @Override
-    public List<Order> getCurrentOrder() {
-        List<Order> currentOrder = sysOrderMapper.getCurrentOrder();
+    public List<SysOrder> getCurrentOrder() {
+        List<SysOrder> currentOrder = sysOrderMapper.getCurrentOrder();
         return currentOrder;
     }
 
     @Override
-    public List<Order> getHistoryOrder() {
-        List<Order> historyOrder = sysOrderMapper.getHistoryOrder();
+    public List<SysOrder> getHistoryOrder() {
+        List<SysOrder> historyOrder = sysOrderMapper.getHistoryOrder();
         return historyOrder;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRED)
-    public Integer modifyOrder(Order order) {
+    public Integer modifyOrder(SysOrder order) {
         Integer integer = sysOrderMapper.modifyOrder(order);
         return integer;
     }
@@ -48,7 +48,7 @@ public class SysOrderServiceImpl implements SysOrderService {
 
     @Override
     @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRED)
-    public Integer insert(Order order) {
+    public Integer insert(SysOrder order) {
         Integer insert = sysOrderMapper.insert(order);
         return insert;
     }

@@ -1,8 +1,6 @@
 package cn.edu.guet.backendmanagement.service;
 
-import cn.edu.guet.backendmanagement.bean.Order;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
+import cn.edu.guet.backendmanagement.bean.SysOrder;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -12,9 +10,9 @@ import java.util.List;
  * Version: 1.0
  */
 public interface SysOrderService {
-    List<Order> getCurrentOrder();
-    List<Order> getHistoryOrder();
-    Integer modifyOrder(Order order);
+    List<SysOrder> getCurrentOrder();
+    List<SysOrder> getHistoryOrder();
+    Integer modifyOrder(SysOrder order);
     Integer deleteOrder(List<BigInteger> orderList);
-    Integer insert(Order order);
+    Integer insert(SysOrder order);
 }

@@ -1,14 +1,11 @@
 package cn.edu.guet.backendmanagement.bean;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.Objects;
 
-public class Order implements Serializable {
+public class SysOrder implements Serializable {
     private BigInteger id;
 
 //    @DateTimeFormat(pattern="yyy-MM-dd HH:mm:ss")
@@ -30,7 +27,7 @@ public class Order implements Serializable {
         return customerId;
     }
 
-    public Order setCustomerId(BigInteger customerId) {
+    public SysOrder setCustomerId(BigInteger customerId) {
         this.customerId = customerId;
         return this;
     }
@@ -39,7 +36,7 @@ public class Order implements Serializable {
         return id;
     }
 
-    public Order setId(BigInteger id) {
+    public SysOrder setId(BigInteger id) {
         this.id = id;
         return this;
     }
@@ -48,7 +45,7 @@ public class Order implements Serializable {
         return startTime;
     }
 
-    public Order setStartTime(String startTime) {
+    public SysOrder setStartTime(String startTime) {
         this.startTime = startTime;
         return this;
     }
@@ -57,7 +54,7 @@ public class Order implements Serializable {
         return list;
     }
 
-    public Order setList(String list) {
+    public SysOrder setList(String list) {
         this.list = list;
         return this;
     }
@@ -66,7 +63,7 @@ public class Order implements Serializable {
         return amount;
     }
 
-    public Order setAmount(BigDecimal amount) {
+    public SysOrder setAmount(BigDecimal amount) {
         this.amount = amount;
         return this;
     }
@@ -75,7 +72,7 @@ public class Order implements Serializable {
         return orderStatus;
     }
 
-    public Order setOrderStatus(Integer orderStatus) {
+    public SysOrder setOrderStatus(Integer orderStatus) {
         this.orderStatus = orderStatus;
         return this;
     }
@@ -84,7 +81,7 @@ public class Order implements Serializable {
         return message;
     }
 
-    public Order setMessage(String message) {
+    public SysOrder setMessage(String message) {
         this.message = message;
         return this;
     }
@@ -92,8 +89,8 @@ public class Order implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Order)) return false;
-        Order order = (Order) o;
+        if (!(o instanceof SysOrder)) return false;
+        SysOrder order = (SysOrder) o;
         return Objects.equals(id, order.id) &&
                 Objects.equals(startTime, order.startTime) &&
                 Objects.equals(list, order.list) &&
@@ -110,7 +107,7 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "SysOrder{" +
                 "id=" + id +
                 ", startTime='" + startTime + '\'' +
                 ", list='" + list + '\'' +
