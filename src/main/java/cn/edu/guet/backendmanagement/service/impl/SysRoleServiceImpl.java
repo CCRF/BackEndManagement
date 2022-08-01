@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import cn.edu.guet.backendmanagement.bean.PageBean;
 import cn.edu.guet.backendmanagement.bean.SysMenu;
 import cn.edu.guet.backendmanagement.bean.SysRole;
 import cn.edu.guet.backendmanagement.bean.SysRoleMenu;
@@ -13,6 +14,7 @@ import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.mapper.SysRoleMapper;
 import cn.edu.guet.backendmanagement.service.SysRoleService;
 import cn.edu.guet.backendmanagement.util.SecurityUtils;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.Authentication;
@@ -32,8 +34,21 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 
     @Override
-    public List<SysRole> findAll() {
-        return sysRoleMapper.findAll();
+    public PageBean<SysRole> selectByPage(int currentPage, int pageSize) {
+
+        int begin = (currentPage - 1) * pageSize;
+
+        int size =pageSize;
+        List<SysRole> rows = sysRoleMapper.selectByPage(begin, size);
+
+        int totalCount = sysRoleMapper.selectTotalCount();
+
+        PageBean<SysRole> pageBean =new PageBean<>();
+
+        pageBean.setRows(rows);
+        pageBean.setTotalCount(totalCount);
+
+        return pageBean;
     }
 
     @Override
