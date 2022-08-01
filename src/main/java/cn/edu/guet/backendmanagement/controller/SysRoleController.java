@@ -1,5 +1,6 @@
 package cn.edu.guet.backendmanagement.controller;
 
+import cn.edu.guet.backendmanagement.bean.PageBean;
 import cn.edu.guet.backendmanagement.bean.SysMenu;
 import cn.edu.guet.backendmanagement.bean.SysRole;
 import cn.edu.guet.backendmanagement.http.HttpResult;
@@ -32,9 +33,12 @@ public class SysRoleController {
     private SysRoleService sysRoleService;
 
     @PreAuthorize("hasAuthority('sys:role:view')")
-    @GetMapping(value = "/findAll")
-    public HttpResult findAll() {
-        return HttpResult.ok(sysRoleService.findAll());
+    @GetMapping(value = "/findAll/{page}/{size}")
+    public HttpResult findAll(@PathVariable int page,@PathVariable int size) {
+
+        PageBean<SysRole> pageBean = sysRoleService.selectByPage(page, size);
+
+        return HttpResult.ok(pageBean);
     }
 
     @PreAuthorize("hasAuthority('sys:role:delete')")
