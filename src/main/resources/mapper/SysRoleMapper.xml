@@ -41,11 +41,11 @@
         from sys_role
         where id = #{id,jdbcType=BIGINT}
     </select>
-    <select id="findAll" resultMap="BaseResultMap">
+    <!--<select id="findAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from sys_role WHERE del_flag!=-1
-    </select>
+    </select>-->
 
 
     <select id="searchMsg" resultType="cn.edu.guet.backendmanagement.bean.SysRole">

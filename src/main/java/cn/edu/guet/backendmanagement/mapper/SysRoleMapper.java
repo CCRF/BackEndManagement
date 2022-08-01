@@ -7,6 +7,7 @@ import cn.edu.guet.backendmanagement.bean.SysMenu;
 import cn.edu.guet.backendmanagement.bean.SysRole;
 import cn.edu.guet.backendmanagement.bean.SysRoleMenu;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.session.RowBounds;
 
 /**
  * @author zhh
@@ -17,7 +18,11 @@ import org.apache.ibatis.annotations.*;
 public interface SysRoleMapper {
     SysRole selectByPrimaryKey(Long id);
 
-    List<SysRole> findAll();
+    @Select("select * from sys_role WHERE del_flag!=-1 limit #{begin},#{size} ")
+    List<SysRole> selectByPage(@Param("begin") int begin, @Param("size") int size);
+
+    @Select("select count(*) from sys_role WHERE del_flag!=-1")
+    int selectTotalCount();
 
 
     @Select("select count(*) from sys_role_menu where role_id=#{id}")

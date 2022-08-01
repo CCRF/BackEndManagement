@@ -1,5 +1,6 @@
 package cn.edu.guet.backendmanagement.service;
 
+import cn.edu.guet.backendmanagement.bean.PageBean;
 import cn.edu.guet.backendmanagement.bean.SysMenu;
 import cn.edu.guet.backendmanagement.bean.SysRole;
 import cn.edu.guet.backendmanagement.http.HttpResult;
@@ -22,7 +23,7 @@ public interface SysRoleService {
      *
      * @return
      */
-    List<SysRole> findAll();
+    PageBean<SysRole> selectByPage(int currentPage, int pageSize);
 
 
     HttpResult deleteMsg(Long id);
