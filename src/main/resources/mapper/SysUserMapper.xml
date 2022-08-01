@@ -25,7 +25,7 @@
     </select>
 
     <select id="findAllUser" resultType="cn.edu.guet.backendmanagement.bean.SysUser">
-        SELECT * FROM sys_user where del_flag!=-1
+        SELECT s.*,c.count FROM sys_user s,(SELECT count(id) count FROM `sys_user` where del_flag!=-1) as c WHERE del_flag!=-1
     </select>
 
 <!--    <delete id="deleteUserById">-->
@@ -74,5 +74,11 @@
     <select id="findUserByName" resultType="cn.edu.guet.backendmanagement.bean.SysRole">
         SELECT s.name,s.remark FROM sys_user u,sys_user_role r,(SELECT id,name,remark FROM sys_role s) as s
         where del_flag!=-1 and u.name=#{name} and u.id=r.user_id and r.role_id=s.id
+    </select>
+
+
+    <select id="findAllRole" resultType="cn.edu.guet.backendmanagement.bean.SysRole">
+        select *
+        from sys_role
     </select>
 </mapper>

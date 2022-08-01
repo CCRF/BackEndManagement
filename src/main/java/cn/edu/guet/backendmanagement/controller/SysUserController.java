@@ -13,8 +13,8 @@ import java.util.Set;
 /**
  * 用户控制器
  *
- * @Author Liwei
- * @Date 2021-08-17 07:15
+ * @Author wangguijun
+ * @Date 2022-08-01
  */
 @RestController
 @RequestMapping("user")
@@ -30,54 +30,69 @@ public class SysUserController {
     }
 
     @GetMapping(value = "/findAllUser")
-    public List<SysUser> findAllUser(){
+    public HttpResult findAllUser(){
         List<SysUser> sysUsers =sysUserService.findAllUser();
-        return sysUsers;
+        return HttpResult.ok(sysUsers);
     }
 
     @DeleteMapping("/deleteUser/{id}")
-    public boolean deleteUser(@PathVariable("id") String id){
-        if(sysUserService.deleteUserById(id)){
+    public HttpResult deleteUser(@PathVariable("id") String id){
+        boolean isTrue = sysUserService.deleteUserById(id);
+        if(isTrue){
             System.out.println("删除成功");
-            return true;
+            return HttpResult.ok(true);
         }else {
-            return false;
+            return HttpResult.ok(false);
         }
     }
     @PostMapping("/updateUser")
-    public boolean updateUser(@RequestBody SysUser sysUser){
-        if(sysUserService.updateUser(sysUser)){
-            System.out.println("更新成功");
-            return true;
+    public HttpResult updateUser(@RequestBody SysUser sysUser){
+        boolean isTrue = sysUserService.updateUser(sysUser);
+        if(isTrue){
+            System.out.println("删除成功");
+            return HttpResult.ok(true);
         }else {
-            return false;
+            return HttpResult.ok(false);
         }
     }
 
     @PostMapping("/insertUser")
-    public boolean insertUser(@RequestBody SysUser sysUser){
-        if(sysUserService.insertUser(sysUser)){
-            System.out.println("插入成功");
-            return true;
+    public HttpResult insertUser(@RequestBody SysUser sysUser){
+        boolean isTrue = sysUserService.insertUser(sysUser);
+        if(isTrue){
+            System.out.println("删除成功");
+            return HttpResult.ok(true);
         }else {
-            return false;
+            return HttpResult.ok(false);
         }
     }
 
     @GetMapping("/findById/{id}")
-    public List<SysUser> findUserById(@PathVariable("id") String id){
-
-        return sysUserService.findUserById(id);
+    public HttpResult findUserById(@PathVariable("id") String id){
+        List<SysUser> sysUsers = sysUserService.findUserById(id);
+        return HttpResult.ok(sysUsers);
     }
 
     @GetMapping("/findUserByMsg/{msg}")
-    public List<SysUser> findUserByMsg(@PathVariable("msg") String msg){
+    public HttpResult findUserByMsg(@PathVariable("msg") String msg){
         String msgs="%"+msg+"%";
-        return sysUserService.findUserByMsg(msgs);
+        List<SysUser> sysUsers = sysUserService.findUserByMsg(msgs);
+        return HttpResult.ok(sysUsers);
     }
 
     @GetMapping("/findUserByName/{name}")
-    public List<SysUser> findUserByName(@PathVariable("name") String name){
-        return sysUserService.findUserByName(name);
+    public HttpResult findUserByName(@PathVariable("name") String name){
+        List<SysUser> sysUsers = sysUserService.findUserByName(name);
+        return HttpResult.ok(sysUsers);
     }
+
+    @PreAuthorize("hasAuthority('sys:role:view')")
+    @GetMapping(value = "/findAllRole")
+    public HttpResult findAll() {
+        return HttpResult.ok(sysUserService.findAllRole());
+    }
+
+
 }
+
+
