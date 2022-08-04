@@ -1,6 +1,8 @@
 package cn.edu.guet.backendmanagement.controller;
 
+import cn.edu.guet.backendmanagement.bean.PageBean;
 import cn.edu.guet.backendmanagement.bean.SetMeal;
+import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SetMealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,7 +12,7 @@ import java.util.List;
 
 /**
  * @Author yj
- * @Date    2022/7/30 19:00
+ * @Date    2022/8/4 18:40
  * @version: 1.0
  */
 @RestController
@@ -22,23 +24,22 @@ public class SetMealController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('sys:setmeal:view')")
-    public List<SetMeal> selectAllMeal(){
-        return service.selectAllMeal();
+    public HttpResult selectAllMeal(){
+        List<SetMeal> meals = service.selectAllMeal();
+        return HttpResult.ok(meals);
     };
 
 
     @PostMapping("/deleteById")
     @PreAuthorize("hasAuthority('sys:setmeal:delete')")//
-    public boolean deleteById(@RequestBody Integer id){
-//        System.out.println("方法被调用了"+id);
+    public HttpResult deleteById(@RequestBody Integer id){
         return service.deleteById(id);
     }
 
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:setmeal:add')")
     //如果具有该权限就可以访问这个
-    public boolean insertMeal(@RequestBody SetMeal setMeal){
-        System.out.println(setMeal);
+    public HttpResult insertMeal(@RequestBody SetMeal setMeal){
         return service.insertMeal(setMeal);
     }
 
@@ -49,13 +50,27 @@ public class SetMealController {
 
     //
     @GetMapping("/selectByName/{name}")
-    public List<SetMeal> selectByNames(@PathVariable String name){
-        return service.selectByNames(name);
+    public HttpResult selectByNames(@PathVariable String name){
+        List<SetMeal> meals = service.selectByNames(name);
+        return HttpResult.ok(meals);
     }
 
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:setmeal:edit')")
-    public boolean updateMeal(@RequestBody SetMeal setMeal){
+    public HttpResult updateMeal(@RequestBody SetMeal setMeal){
         return service.updateMeal(setMeal);
+    }
+
+
+//    @GetMapping("/goods")
+//    public HttpResult getAllGoods(){
+//        List<Good> goods = service.getAllGoods();
+//        return HttpResult.ok(goods);
+//    }
+
+    @GetMapping("/page/{page}/{size}")
+    public HttpResult selectByPage(@PathVariable Integer page,@PathVariable Integer size){
+        PageBean<SetMeal> bean = service.selectByPage(page, size);
+        return HttpResult.ok(bean);
     }
 }
