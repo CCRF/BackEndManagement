@@ -3,9 +3,7 @@ package cn.edu.guet.backendmanagement.controller;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SysGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author HHS
@@ -20,7 +18,38 @@ public class SysGoodsController {
 
     @GetMapping("/findAllGoods")
     public HttpResult findAllGoods() {
-        System.out.println(sysGoodsService.findAll());
+//        System.out.println(sysGoodsService.findAll());
         return HttpResult.ok(sysGoodsService.findAll());
+    }
+
+    @GetMapping("/selectGoodsByIsSale")
+    public HttpResult selectGoodsByIsSale(@RequestParam int isSale) {
+        System.out.println(sysGoodsService.selectByIsSale(isSale));
+        return HttpResult.ok(sysGoodsService.selectByIsSale(isSale));
+    }
+
+    @GetMapping("/selectGoodsByType")
+    public HttpResult selectGoodsByType(@RequestParam String typeName) {
+        System.out.println(sysGoodsService.selectByType(typeName));
+        return HttpResult.ok(sysGoodsService.selectByType(typeName));
+    }
+
+    @GetMapping("/selectGoodsByPrice")
+    public HttpResult selectGoodsByPrice(@RequestParam double price) {
+        System.out.println(sysGoodsService.selectByPrice(price));
+        return HttpResult.ok(sysGoodsService.selectByPrice(price));
+    }
+
+    @GetMapping("/selectGoodsByMsg")
+    public HttpResult selectGoodsByMsg(@RequestParam String msg) {
+        msg = "%" + msg + "%";
+        System.out.println(sysGoodsService.selectByMsg(msg));
+        return HttpResult.ok(sysGoodsService.selectByMsg(msg));
+    }
+
+    @GetMapping("/findAllType")
+    public HttpResult findAllType() {
+        System.out.println(sysGoodsService.findAllType());
+        return HttpResult.ok(sysGoodsService.findAllType());
     }
 }

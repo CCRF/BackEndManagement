@@ -1,5 +1,6 @@
 package cn.edu.guet.backendmanagement.service.impl;
 
+import cn.edu.guet.backendmanagement.bean.SysCategory;
 import cn.edu.guet.backendmanagement.bean.SysGoods;
 import cn.edu.guet.backendmanagement.mapper.SysGoodsMapper;
 import cn.edu.guet.backendmanagement.service.SysGoodsService;
@@ -21,5 +22,30 @@ public class SysGoodsServiceImpl implements SysGoodsService {
     @Override
     public List<SysGoods> findAll() {
         return sysGoodsMapper.findAll();
+    }
+
+    @Override
+    public List<SysGoods> selectByIsSale(int isSale) {
+        return sysGoodsMapper.selectByIsSale(isSale);
+    }
+
+    @Override
+    public List<SysGoods> selectByType(String typeName) {
+        return sysGoodsMapper.selectByType(typeName);
+    }
+
+    @Override
+    public List<SysGoods> selectByPrice(double price) {
+        return sysGoodsMapper.selectByPrice(price);
+    }
+
+    @Override
+    public List<SysGoods> selectByMsg(String msg) {
+        return sysGoodsMapper.selectByMsg(msg);
+    }
+
+    @Override
+    public List<SysCategory> findAllType() {
+        return sysGoodsMapper.findAllType();
     }
 }
