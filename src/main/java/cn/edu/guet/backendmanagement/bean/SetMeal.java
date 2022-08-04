@@ -1,32 +1,25 @@
 package cn.edu.guet.backendmanagement.bean;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Author yj
- * @Date    2022/7/30 19:00
+ * @Date    2022/8/4 18:40
  * @version: 1.0
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SetMeal {
     private Integer id;
-    private String meal_name;
+    private String name;
     private Double price;
     private String contain;
     private String description;
     public Integer sale;
     private String flavor;
+    private String picture;
 
-    public SetMeal() {
-    }
-
-    public SetMeal(Integer id, String meal_name, Double price, String contain, String description, Integer sale, String flavor) {
-        this.id = id;
-        this.meal_name = meal_name;
-        this.price = price;
-        this.contain = contain;
-        this.description = description;
-        this.sale = sale;
-        this.flavor = flavor;
-    }
 }

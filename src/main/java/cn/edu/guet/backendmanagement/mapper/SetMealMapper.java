@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @Author yj
- * @Date    2022/7/30 19:00
+ * @Date    2022/8/4 18:40
  * @version: 1.0
  */
 @Mapper
@@ -16,26 +16,31 @@ public interface SetMealMapper {
      List<SetMeal> selectAllMeal();
 
     @Delete("delete from sys_setmeal where id = #{id}")
-    void deleteById(Integer id);
+    int deleteById(Integer id);
 
-    @Insert("INSERT INTO sys_setmeal(meal_name,price,contain,description,sale,flavor)" +
-            " values(#{meal_name},#{price},#{contain},#{description},#{sale},#{flavor})")
-    void insertMeal(SetMeal setMeal);
-
-//    INSERT INTO sys_setmeal(meal_name,price,contain,description,sale,flavor)
-//    VALUES('3',3.0,'3','3',35,'3')
-
+    @Insert("INSERT INTO sys_setmeal(name,price,contain,description,sale,flavor,picture)" +
+            " values(#{name},#{price},#{contain},#{description},#{sale},#{flavor},#{picture})")
+    int insertMeal(SetMeal setMeal);
 
     @Select("select * from sys_setmeal where id = #{id}")
     SetMeal findById(Integer id);
 
-    @Select("select * from sys_setmeal where meal_name like CONCAT('%',#{name},'%')")
+    @Select("select * from sys_setmeal where name like CONCAT('%',#{name},'%')")
     List<SetMeal> selectByNames(String name);
 
-    @Update("update sys_setmeal set meal_name = #{meal_name}, price = #{price}," +
-            " contain = #{contain}, description = #{description}, sale = #{sale}, flavor = #{flavor}" +
+    @Update("update sys_setmeal set name = #{name}, price = #{price}," +
+            " contain = #{contain}, description = #{description}, sale = #{sale}, flavor = #{flavor}, picture = #{picture}" +
             "where id = #{id}")
-    void updateMeal(SetMeal setMeal);
+    int updateMeal(SetMeal setMeal);
+
+//    @Select("select * from sys_goods")
+//    List<Good> getAllGoods();
+
+    @Select("SELECT * FROM `sys_setmeal` LIMIT #{page} ,#{size}")
+    List<SetMeal> selectByPage(Integer page, Integer size);
+
+    @Select("select count(*) from sys_setmeal")
+    Integer selectTotalCount();
 }
 
 //    private Integer id;
