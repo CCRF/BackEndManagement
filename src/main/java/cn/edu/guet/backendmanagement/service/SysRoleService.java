@@ -3,6 +3,7 @@ package cn.edu.guet.backendmanagement.service;
 import cn.edu.guet.backendmanagement.bean.PageBean;
 import cn.edu.guet.backendmanagement.bean.SysMenu;
 import cn.edu.guet.backendmanagement.bean.SysRole;
+import cn.edu.guet.backendmanagement.bean.SysRoleMenu;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import org.springframework.http.HttpRequest;
 
@@ -37,4 +38,6 @@ public interface SysRoleService {
     HttpResult updateRoleMenu(List<String> nameList,Long id);
 
     List<SysRole> searchMsg(String msg);
+
+    List<SysMenu> getNewMsgByName(String name);
 }
