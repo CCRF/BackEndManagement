@@ -54,7 +54,6 @@ public class WXSysGoodsController {
     }
 
 
-
     //接收微信小程序传来的订单信息
     @Autowired
     private SysOrderService sysOrderService;
