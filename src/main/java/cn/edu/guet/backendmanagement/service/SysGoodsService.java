@@ -1,5 +1,6 @@
 package cn.edu.guet.backendmanagement.service;
 
+import cn.edu.guet.backendmanagement.bean.SysCategory;
 import cn.edu.guet.backendmanagement.bean.SysGoods;
 
 import java.util.List;
@@ -10,4 +11,10 @@ import java.util.List;
  */
 public interface SysGoodsService {
     List<SysGoods> findAll();
+    List<SysGoods> selectByIsSale(int isSale);
+    List<SysGoods> selectByType(String typeName);
+    List<SysGoods> selectByPrice(double price);
+    List<SysGoods> selectByMsg(String msg);
+
+    List<SysCategory> findAllType();
 }
