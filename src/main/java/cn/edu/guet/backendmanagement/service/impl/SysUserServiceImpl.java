@@ -116,6 +116,11 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    public List<SysRole> findAllRole() {
+        return sysUserMapper.findAllRole();
+    }
+
+    @Override
     public Set<String> findPermissions(String userName) {
         System.out.println("获取用户权限菜单: "+userName);
         Set<String> perms = new HashSet<>();

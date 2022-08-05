@@ -1,5 +1,6 @@
 package cn.edu.guet.backendmanagement.service;
 
+import cn.edu.guet.backendmanagement.bean.SysRole;
 import cn.edu.guet.backendmanagement.bean.SysUser;
 import cn.edu.guet.backendmanagement.bean.SysUserRole;
 
@@ -9,8 +10,8 @@ import java.util.Set;
 /**
  * 用户管理
  *
- * @Author Liwei
- * @Date 2021-08-13 18:03
+ * @Author wangguijun
+ * @Date 2022-08-01
  */
 public interface SysUserService {
 
@@ -39,5 +40,8 @@ public interface SysUserService {
     List<SysUser> findUserByMsg(String msg);
 
     List<SysUser> findUserByName(String name);
+
+    List<SysRole> findAllRole();
+
 
 }
