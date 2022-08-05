@@ -73,8 +73,13 @@ public class SysCustomerController {
     @PostMapping("/getPhoneNumber")
     public HttpResult getPhoneNumber(@RequestBody SysCustomer customer){
         System.out.println("wx/getPhoneNumber");
+        System.out.println(customer);
 
         PhoneNumberDto phone = WeChatUtil.getPhone(customer.getIv(), customer.getEncryptedData(), customer.getSessionKey());
+
+        // 将手机号存储进该用户的数据库信息中
+        scs.updatePhoneNumber(customer.getOpenId(), phone.getPhoneNumber());
+
         return HttpResult.ok(phone);
     }
 }

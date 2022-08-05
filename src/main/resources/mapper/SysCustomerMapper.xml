@@ -17,7 +17,11 @@
     </select>
 
     <insert id="addCustomer" parameterType="sysCustomer">
-        INSERT INTO sys_customer(open_id, avatar, nick_name, phone_number)
-        VALUES (#{openId}, avatar, nickName, phoneNumber)
+        INSERT INTO sys_customer(open_id, avatar, nick_name)
+        VALUES (#{openId}, #{avatar}, #{nickName})
     </insert>
+
+    <update id="updatePhoneNumber">
+        UPDATE sys_customer SET phone_number=#{phoneNumber} WHERE open_id=#{openId}
+    </update>
 </mapper>

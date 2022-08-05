@@ -20,4 +20,9 @@ public class SysCustomerServiceImpl implements SysCustomerService {
     public int addCustomer(SysCustomer customer) {
         return scm.addCustomer(customer);
     }
+
+    @Override
+    public int updatePhoneNumber(String openId, String phoneNumber) {
+        return scm.updatePhoneNumber(openId,phoneNumber);
+    }
 }
