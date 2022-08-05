@@ -33,13 +33,11 @@ public class WXSysGoodsController {
     //微信小程序的查询所有餐品，餐品类型，
     @GetMapping("/findAllGoods")
     public HttpResult findAllGoods() {
-        System.out.println(sysGoodsService.findAll());
         return HttpResult.ok(sysGoodsService.findAll());
     }
 
     @GetMapping("/findAllType")
     public HttpResult findAllType() {
-        System.out.println(sysGoodsService.findAllType());
         return HttpResult.ok(sysGoodsService.findAllType());
     }
 
