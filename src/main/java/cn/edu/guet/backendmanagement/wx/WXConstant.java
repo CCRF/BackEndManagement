@@ -1,4 +1,4 @@
-package cn.edu.guet.backendmanagement.util;
+package cn.edu.guet.backendmanagement.wx;
 
 public class WXConstant {
     // AppID(小程序ID)

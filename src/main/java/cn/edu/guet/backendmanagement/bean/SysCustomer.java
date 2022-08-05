@@ -14,9 +14,39 @@ public class SysCustomer {
     private String code;
     private String rawData;
     private String signature;
+    private String sessionKey; // 返回
+
+    private String iv;
+    private String encryptedData;
+
+
+
+    public String getIv() {
+        return iv;
+    }
+
+    public void setIv(String iv) {
+        this.iv = iv;
+    }
+
+    public String getEncryptedData() {
+        return encryptedData;
+    }
+
+    public void setEncryptedData(String encryptedData) {
+        this.encryptedData = encryptedData;
+    }
 
     public String getCode() {
         return code;
+    }
+
+    public String getSessionKey() {
+        return sessionKey;
+    }
+
+    public void setSessionKey(String sessionKey) {
+        this.sessionKey = sessionKey;
     }
 
     public void setCode(String code) {

@@ -1,30 +1,27 @@
-package cn.edu.guet.backendmanagement.controller;
+package cn.edu.guet.backendmanagement.controller.wx;
 
 import cn.edu.guet.backendmanagement.bean.SysCustomer;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SysCustomerService;
-import cn.edu.guet.backendmanagement.service.SysOrderService;
-import cn.edu.guet.backendmanagement.util.WeChatUtil;
+import cn.edu.guet.backendmanagement.wx.PhoneNumberDto;
+import cn.edu.guet.backendmanagement.wx.WeChatUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-//import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-//import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("wx")
 public class SysCustomerController {
 
     @Autowired
     private SysCustomerService scs;
 
     // RequestBody接收JSON对象
-    @PostMapping("/wx/login")
+    @PostMapping("/login")
     public HttpResult user_login(@RequestBody SysCustomer customer){
 //    public HttpResult user_login(@RequestParam(value = "code", required = false) String code,
 //                                 @RequestParam(value = "rawData", required = false) String rawData,
@@ -68,7 +65,16 @@ public class SysCustomerController {
             user.setNickName(nickName);
             scs.addCustomer(user);
         }
+        user.setSessionKey(sessionKey);
         System.out.println("登录成功：" + user);
         return HttpResult.ok(user);
+    }
+
+    @PostMapping("/getPhoneNumber")
+    public HttpResult getPhoneNumber(@RequestBody SysCustomer customer){
+        System.out.println("wx/getPhoneNumber");
+
+        PhoneNumberDto phone = WeChatUtil.getPhone(customer.getIv(), customer.getEncryptedData(), customer.getSessionKey());
+        return HttpResult.ok(phone);
     }
 }

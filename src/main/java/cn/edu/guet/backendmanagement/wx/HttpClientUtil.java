@@ -1,4 +1,4 @@
-package cn.edu.guet.backendmanagement.util;
+package cn.edu.guet.backendmanagement.wx;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
