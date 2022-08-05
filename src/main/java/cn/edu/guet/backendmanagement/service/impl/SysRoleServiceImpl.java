@@ -3,18 +3,20 @@ package cn.edu.guet.backendmanagement.service.impl;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import cn.edu.guet.backendmanagement.bean.PageBean;
-import cn.edu.guet.backendmanagement.bean.SysMenu;
-import cn.edu.guet.backendmanagement.bean.SysRole;
-import cn.edu.guet.backendmanagement.bean.SysRoleMenu;
+import cn.edu.guet.backendmanagement.bean.*;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.mapper.SysRoleMapper;
+import cn.edu.guet.backendmanagement.mapper.SysUserMapper;
+import cn.edu.guet.backendmanagement.mapper.SysUserRoleMapper;
 import cn.edu.guet.backendmanagement.service.SysRoleService;
 import cn.edu.guet.backendmanagement.util.SecurityUtils;
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.Authentication;
@@ -31,6 +33,12 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
     private SysRoleMapper sysRoleMapper;
+
+    @Autowired
+    private SysUserMapper sysUserMapper;
+
+    @Autowired
+    private SysUserRoleMapper sysUserRoleMapper;
 
 
     @Override
@@ -138,6 +146,20 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public List<SysRole> searchMsg(String msg) {
         return sysRoleMapper.searchMsg(msg);
+    }
+
+    @Override
+    public List<SysMenu> getNewMsgByName(String name) {
+
+        SysUser byName = sysUserMapper.findByName(name);
+
+        Long id = byName.getId();
+
+        List<SysUserRole> userRoles = sysUserRoleMapper.findUserRoles(id);
+
+        Long roleId = userRoles.get(0).getRoleId();
+
+        return sysRoleMapper.getNewMsg(roleId);
     }
 
 }
