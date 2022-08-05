@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.guet.backendmanagement.mapper.SysCustomerMapper">
+    <resultMap id="CustomerMap" type="sysCustomer">
+        <id column="open_id" property="openId"></id>
+        <result column="avatar" property="avatar"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="is_member" property="isMember"/>
+        <result column="expire_time" property="expireTime"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+    <select id="getCustomer" resultMap="CustomerMap">
+        SELECT *
+        FROM sys_customer
+        WHERE open_id = #{value}
+    </select>
+
+    <insert id="addCustomer" parameterType="sysCustomer">
+        INSERT INTO sys_customer(open_id, avatar, nick_name, phone_number)
+        VALUES (#{openId}, avatar, nickName, phoneNumber)
+    </insert>
+</mapper>
