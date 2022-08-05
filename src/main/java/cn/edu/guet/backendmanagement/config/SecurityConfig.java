@@ -16,8 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.security.web.firewall.HttpFirewall;
-import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 /**
  * Security的自定义各种配置
@@ -61,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 跨域预检请求
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/login","/wx/*").permitAll()
+                .antMatchers("/login","/wx/**", "/images/**").permitAll()
 
                 // 其他所有请求需要身份认证
                 .anyRequest().authenticated();
