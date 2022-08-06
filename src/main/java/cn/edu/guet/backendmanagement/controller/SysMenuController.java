@@ -2,17 +2,13 @@ package cn.edu.guet.backendmanagement.controller;
 
 import java.util.List;
 
+import cn.edu.guet.backendmanagement.bean.PageBean;
 import cn.edu.guet.backendmanagement.bean.SysMenu;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 菜单控制器
@@ -33,5 +29,22 @@ public class SysMenuController {
         System.out.println("查找菜单树：" + userName);
         List<SysMenu> sysMenus = sysMenuService.findTree(userName, 1);
         return HttpResult.ok(sysMenus);
+    }
+
+    @GetMapping(value = "/findAllNavTree")
+    public HttpResult findAllNavTree(@RequestParam String userName) {
+
+        List<SysMenu> sysMenus = sysMenuService.findTree(userName, 0);
+        return HttpResult.ok(sysMenus);
+    }
+
+
+    @GetMapping("findAll/{page}/{size}")
+    public HttpResult finaAll(@PathVariable int page, @PathVariable int size){
+
+        PageBean<SysMenu> pageBean = sysMenuService.findAll(page,size);
+
+
+        return HttpResult.ok(pageBean);
     }
 }

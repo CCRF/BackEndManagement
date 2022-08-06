@@ -3,7 +3,9 @@ package cn.edu.guet.backendmanagement.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.guet.backendmanagement.bean.PageBean;
 import cn.edu.guet.backendmanagement.bean.SysMenu;
+import cn.edu.guet.backendmanagement.bean.SysRole;
 import cn.edu.guet.backendmanagement.mapper.SysMenuMapper;
 import cn.edu.guet.backendmanagement.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,23 @@ public class SysMenuServiceImpl implements SysMenuService {
 
         System.out.println("最后 " + sysMenus);
         return sysMenus;
+    }
+
+    @Override
+    public PageBean<SysMenu> findAll(int currentPage, int pageSize) {
+        int begin = (currentPage - 1) * pageSize;
+
+        int size = pageSize;
+        List<SysMenu> rows = sysMenuMapper.selectByPage(begin, size);
+
+        int totalCount = sysMenuMapper.selectTotalCount();
+
+        PageBean<SysMenu> pageBean = new PageBean<>();
+
+        pageBean.setRows(rows);
+        pageBean.setTotalCount(totalCount);
+
+        return pageBean;
     }
 
     private void findChildren(List<SysMenu> SysMenus, List<SysMenu> menus, int menuType) {
