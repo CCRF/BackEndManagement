@@ -1,14 +1,20 @@
 package cn.edu.guet.backendmanagement.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.edu.guet.backendmanagement.bean.PageBean;
 import cn.edu.guet.backendmanagement.bean.SysMenu;
 import cn.edu.guet.backendmanagement.bean.SysRole;
+import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.mapper.SysMenuMapper;
 import cn.edu.guet.backendmanagement.service.SysMenuService;
+import cn.edu.guet.backendmanagement.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 /**
@@ -97,5 +103,70 @@ public class SysMenuServiceImpl implements SysMenuService {
             }
         }
         return exist;
+    }
+
+    @Override
+    public List<SysMenu> searchMsg(String msg) {
+        return sysMenuMapper.searchMsg(msg);
+    }
+
+    @Override
+    public HttpResult deleteMsg(Long id) {
+
+        List<SysMenu> sysMenuList = sysMenuMapper.count();
+
+        for (int i = 0; i < sysMenuList.size(); i++) {
+            if (id == sysMenuList.get(i).getParentId()) {
+                return HttpResult.error("该菜单具有子菜单，无法删除！！！");
+            }
+        }
+
+        sysMenuMapper.deleteMsg(id);
+
+
+        return HttpResult.ok("删除成功");
+    }
+
+    @Override
+    public int addMsg(SysMenu sysMenu) {
+
+        if (sysMenu != null) {
+            if (sysMenu.getType() != 0 && sysMenu.getType() != 1) {
+                sysMenu.setOrderNum(0);
+            } else {
+                sysMenu.setOrderNum(5);
+            }
+            sysMenu.setDelFlag((byte) 0);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = new Date();
+            sysMenu.setCreateTime(date);
+            Authentication authentication = SecurityUtils.getAuthentication();
+            String userName = authentication.getPrincipal().toString();
+            sysMenu.setCreateBy(userName);
+        }
+
+
+        int row = sysMenuMapper.addMsg(sysMenu);
+        return row;
+    }
+    @Override
+    public HttpResult updateName(SysMenu sysMenu) {
+
+        String name = sysMenu.getName();
+        String url = sysMenu.getUrl();
+
+        Long id = sysMenu.getId();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        sysMenu.setLastUpdateTime(date);
+        Date lastUpdateTime = sysMenu.getLastUpdateTime();
+
+        Authentication authentication = SecurityUtils.getAuthentication();
+        String updateName = authentication.getPrincipal().toString();
+        sysMenu.setLastUpdateBy(updateName);
+        String lastUpdateBy = sysMenu.getLastUpdateBy();
+
+        sysMenuMapper.updateName(name, url, id, lastUpdateTime, lastUpdateBy);
+        return HttpResult.ok();
     }
 }

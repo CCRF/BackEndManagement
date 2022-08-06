@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.edu.guet.backendmanagement.bean.PageBean;
 import cn.edu.guet.backendmanagement.bean.SysMenu;
+import cn.edu.guet.backendmanagement.bean.SysRole;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class SysMenuController {
         return HttpResult.ok(sysMenus);
     }
 
-
+    @PreAuthorize("hasAuthority('sys:menu:view')")
     @GetMapping("findAll/{page}/{size}")
     public HttpResult finaAll(@PathVariable int page, @PathVariable int size){
 
@@ -46,5 +47,49 @@ public class SysMenuController {
 
 
         return HttpResult.ok(pageBean);
+    }
+
+    @PreAuthorize("hasAuthority('sys:menu:view')")
+    @PostMapping(value = "/searchMsg")
+    public HttpResult searchMsg(@RequestBody String searchMsg) {
+        String msg="%"+searchMsg+"%";
+        return HttpResult.ok(sysMenuService.searchMsg(msg));
+    }
+
+    @PreAuthorize("hasAuthority('sys:menu:delete')")
+    @DeleteMapping("deleteMsg/{id}")
+    public HttpResult deleteMsg(@PathVariable Long id) {
+
+        System.out.println(id);
+        HttpResult httpResult = sysMenuService.deleteMsg(id);
+
+        return httpResult;
+    }
+
+    @PreAuthorize("hasAuthority('sys:menu:add')")
+    @PostMapping("addMsg")
+    public HttpResult addMsg(@RequestBody SysMenu sysMenu) {
+
+        if (sysMenu.getName().equals("")){
+            return HttpResult.error("输入内容不能为空");
+        }else {
+            int row = sysMenuService.addMsg(sysMenu);
+
+            return row > 0 ? HttpResult.ok("添加成功") : HttpResult.error("添加失败");
+        }
+    }
+
+    @PreAuthorize("hasAuthority('sys:menu:edit')")
+    @PostMapping("updateName")
+    public HttpResult updateName(@RequestBody SysMenu sysMenu) {
+
+        if (sysMenu.getName().equals("")){
+            return HttpResult.error("输入内容不能为空");
+        }else {
+            HttpResult httpResult = sysMenuService.updateName(sysMenu);
+
+            return httpResult;
+        }
+
     }
 }
