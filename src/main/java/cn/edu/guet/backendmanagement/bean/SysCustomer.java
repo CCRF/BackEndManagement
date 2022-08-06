@@ -6,10 +6,12 @@ public class SysCustomer {
     private String openId;
     private String avatar;
     private String nickName;
+    private String phoneNumber;
+    private double sum; //总消费金额
     private int isMember;
     private Date expireTime;
+    private Date latestTime;
     private String remark;
-    private int phoneNumber;
 
     private String code;
     private String rawData;
@@ -18,56 +20,6 @@ public class SysCustomer {
 
     private String iv;
     private String encryptedData;
-
-
-
-    public String getIv() {
-        return iv;
-    }
-
-    public void setIv(String iv) {
-        this.iv = iv;
-    }
-
-    public String getEncryptedData() {
-        return encryptedData;
-    }
-
-    public void setEncryptedData(String encryptedData) {
-        this.encryptedData = encryptedData;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getSessionKey() {
-        return sessionKey;
-    }
-
-    public void setSessionKey(String sessionKey) {
-        this.sessionKey = sessionKey;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getRawData() {
-        return rawData;
-    }
-
-    public void setRawData(String rawData) {
-        this.rawData = rawData;
-    }
-
-    public String getSignature() {
-        return signature;
-    }
-
-    public void setSignature(String signature) {
-        this.signature = signature;
-    }
 
     public String getOpenId() {
         return openId;
@@ -91,6 +43,14 @@ public class SysCustomer {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public double getSum() {
+        return sum;
+    }
+
+    public void setSum(double sum) {
+        this.sum = sum;
     }
 
     public int getIsMember() {
@@ -117,12 +77,68 @@ public class SysCustomer {
         this.remark = remark;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getRawData() {
+        return rawData;
+    }
+
+    public void setRawData(String rawData) {
+        this.rawData = rawData;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public String getSessionKey() {
+        return sessionKey;
+    }
+
+    public void setSessionKey(String sessionKey) {
+        this.sessionKey = sessionKey;
+    }
+
+    public String getIv() {
+        return iv;
+    }
+
+    public void setIv(String iv) {
+        this.iv = iv;
+    }
+
+    public String getEncryptedData() {
+        return encryptedData;
+    }
+
+    public void setEncryptedData(String encryptedData) {
+        this.encryptedData = encryptedData;
+    }
+
+    public Date getLatestTime() {
+        return latestTime;
+    }
+
+    public void setLatestTime(Date latestTime) {
+        this.latestTime = latestTime;
     }
 
     @Override
@@ -131,10 +147,18 @@ public class SysCustomer {
                 "openId='" + openId + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", nickName='" + nickName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", sum=" + sum +
                 ", isMember=" + isMember +
                 ", expireTime=" + expireTime +
+                ", latestTime=" + latestTime +
                 ", remark='" + remark + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", code='" + code + '\'' +
+                ", rawData='" + rawData + '\'' +
+                ", signature='" + signature + '\'' +
+                ", sessionKey='" + sessionKey + '\'' +
+                ", iv='" + iv + '\'' +
+                ", encryptedData='" + encryptedData + '\'' +
                 '}';
     }
 }

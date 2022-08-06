@@ -6,16 +6,26 @@
         <result column="avatar" property="avatar"/>
         <result column="nick_name" property="nickName"/>
         <result column="phone_number" property="phoneNumber"/>
+        <result column="sum" property="sum"/>
         <result column="is_member" property="isMember"/>
         <result column="expire_time" property="expireTime"/>
+        <result column="latest_time" property="latestTime"/>
         <result column="remark" property="remark"/>
     </resultMap>
+
+    <!-- ===========================查询================================ -->
     <select id="getCustomer" resultMap="CustomerMap">
         SELECT *
         FROM sys_customer
         WHERE open_id = #{value}
     </select>
 
+    <select id="getAllCustomer" resultMap="CustomerMap">
+        SELECT *
+        FROM sys_customer
+    </select>
+
+    <!-- ===========================增、删、改================================ -->
     <insert id="addCustomer" parameterType="sysCustomer">
         INSERT INTO sys_customer(open_id, avatar, nick_name)
         VALUES (#{openId}, #{avatar}, #{nickName})
