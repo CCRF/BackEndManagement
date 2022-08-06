@@ -17,12 +17,16 @@ public interface SysGoodsMapper {
     List<SysGoods> selectByType(String typeName);
     List<SysGoods> selectByPrice(double price);
     List<SysGoods> selectByMsg(String msg);
+
 //    boolean insertGoods();
 //    boolean insertCategory();
 //    boolean updateGoodsById();
 //    boolean updateCategoryById();
-//    boolean deleteGoodsById(long id);
-//    boolean deleteCategoryById(long id);
+    boolean deleteGoodsById(long id);
+    boolean deleteGCByGId(long id);
 
     List<SysCategory> findAllType();
+
+    boolean deleteCategoryById(long id);
+    boolean deleteGCByCId(long id);
 }

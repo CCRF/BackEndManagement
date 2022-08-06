@@ -45,7 +45,21 @@ public class SysGoodsServiceImpl implements SysGoodsService {
     }
 
     @Override
+    public boolean deleteGoodsById(long id) {
+        sysGoodsMapper.deleteGCByGId(id);
+        sysGoodsMapper.deleteGoodsById(id);
+        return true;
+    }
+
+    @Override
     public List<SysCategory> findAllType() {
         return sysGoodsMapper.findAllType();
+    }
+
+    @Override
+    public boolean deleteCategoryById(long id) {
+        sysGoodsMapper.deleteGCByCId(id);
+        sysGoodsMapper.deleteCategoryById(id);
+        return true;
     }
 }

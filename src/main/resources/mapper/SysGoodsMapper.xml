@@ -17,6 +17,26 @@
         FROM sys_goods g, sys_category c, sys_goods_category gc
         WHERE g.goods_id=gc.goods_id AND c.category_id=gc.category_id
     </sql>
+    <delete id="deleteGoodsById">
+        DELETE
+        FROM sys_goods
+        WHERE goods_id=#{value}
+    </delete>
+    <delete id="deleteGCByGId">
+        DELETE
+        FROM sys_goods_category
+        WHERE goods_id=#{value}
+    </delete>
+    <delete id="deleteCategoryById">
+        DELETE
+        FROM sys_category
+        WHERE category_id=#{value}
+    </delete>
+    <delete id="deleteGCByCId">
+        DELETE
+        FROM sys_goods_category
+        WHERE category_id=#{value}
+    </delete>
     <select id="findAll" resultMap="BaseResultMap">
         <include refid="Base_Column_List"/>
         ORDER BY g.goods_id

@@ -47,6 +47,12 @@ public class SysGoodsController {
         return HttpResult.ok(sysGoodsService.selectByMsg(msg));
     }
 
+    @PostMapping("/deleteGoods")
+    public HttpResult deleteGoods(@RequestBody long id) {
+        System.out.println(id);
+        return HttpResult.ok(sysGoodsService.deleteGoodsById(id));
+    }
+
     @GetMapping("/findAllType")
     public HttpResult findAllType() {
         System.out.println(sysGoodsService.findAllType());

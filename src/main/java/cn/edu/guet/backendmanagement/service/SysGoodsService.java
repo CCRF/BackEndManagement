@@ -16,5 +16,9 @@ public interface SysGoodsService {
     List<SysGoods> selectByPrice(double price);
     List<SysGoods> selectByMsg(String msg);
 
+    boolean deleteGoodsById(long id);
+
     List<SysCategory> findAllType();
+
+    boolean deleteCategoryById(long id);
 }
