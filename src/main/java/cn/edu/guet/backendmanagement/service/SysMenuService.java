@@ -1,5 +1,6 @@
 package cn.edu.guet.backendmanagement.service;
 
+import cn.edu.guet.backendmanagement.bean.PageBean;
 import cn.edu.guet.backendmanagement.bean.SysMenu;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface SysMenuService {
      * @return
      */
     List<SysMenu> findTree(String userName, int menuType);
+
+    PageBean<SysMenu> findAll(int page, int size);
 }

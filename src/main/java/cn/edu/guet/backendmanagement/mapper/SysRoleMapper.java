@@ -36,7 +36,7 @@ public interface SysRoleMapper {
     int addMsg(SysRole sysRole);
 
 
-    @Select("select m.name from sys_menu as m,sys_role_menu as sm where sm.role_id=#{id} and m.id=sm.menu_id")
+    @Select("select * from sys_menu as m,sys_role_menu as sm where sm.role_id=#{id} and m.id=sm.menu_id")
     List<SysMenu> getNewMsg(Long id);
 
     @Update("update sys_role set name=#{userName}, remark=#{remark},last_update_time=#{lastUpdateTime},last_update_by=#{lastUpdateBy} where id=#{id}")
