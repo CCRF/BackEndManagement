@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("wx")
-public class SysCustomerController {
+public class WXSysCustomerController {
 
     @Autowired
     private SysCustomerService scs;
