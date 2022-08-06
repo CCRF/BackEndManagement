@@ -2,6 +2,7 @@ package cn.edu.guet.backendmanagement.service;
 
 import cn.edu.guet.backendmanagement.bean.SysCategory;
 import cn.edu.guet.backendmanagement.bean.SysGoods;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,9 +13,10 @@ import java.util.List;
 public interface SysGoodsService {
     List<SysGoods> findAll();
     List<SysGoods> selectByIsSale(int isSale);
-    List<SysGoods> selectByType(String typeName);
+    List<SysGoods> selectByType(long typeId);
     List<SysGoods> selectByPrice(double price);
     List<SysGoods> selectByMsg(String msg);
+    List<SysGoods> selectByAllMsg(String isSale, String typeId, String price, String msg);
 
     boolean deleteGoodsById(long id);
 

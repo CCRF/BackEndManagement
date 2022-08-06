@@ -30,8 +30,8 @@ public class SysGoodsServiceImpl implements SysGoodsService {
     }
 
     @Override
-    public List<SysGoods> selectByType(String typeName) {
-        return sysGoodsMapper.selectByType(typeName);
+    public List<SysGoods> selectByType(long typeId) {
+        return sysGoodsMapper.selectByType(typeId);
     }
 
     @Override
@@ -41,7 +41,20 @@ public class SysGoodsServiceImpl implements SysGoodsService {
 
     @Override
     public List<SysGoods> selectByMsg(String msg) {
+        msg = "%" + msg + "%";
         return sysGoodsMapper.selectByMsg(msg);
+    }
+
+    @Override
+    public List<SysGoods> selectByAllMsg(String isSale, String typeId, String price, String msg) {
+        if (isSale == "")
+            isSale = null;
+        if (typeId == "")
+            typeId = null;
+        if (price == "")
+            price = null;
+        msg = "%" + msg + "%";
+        return sysGoodsMapper.selectByAllMsg(isSale, typeId, price, msg);
     }
 
     @Override

@@ -8,12 +8,17 @@
         <result column="isSale" jdbcType="TINYINT" property="isSale"/>
         <result column="goods_remark" jdbcType="VARCHAR" property="remark"/>
         <result column="picture" jdbcType="VARCHAR" property="picture"/>
-        <collection property="type" ofType="sysCategory">
-            <result column="category_name" property="name"></result>
+        <collection property="type" resultMap="TypeResultMap">
         </collection>
     </resultMap>
+    <resultMap id="TypeResultMap" type="cn.edu.guet.backendmanagement.bean.SysCategory">
+        <id column="category_id" jdbcType="BIGINT" property="id"/>
+        <result column="category_name" jdbcType="VARCHAR" property="name"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="category_remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
     <sql id="Base_Column_List">
-        SELECT g.goods_id, category_name, goods_name, price, isSale, goods_remark, picture
+        SELECT g.goods_id, c.*, goods_name, price, isSale, goods_remark, picture
         FROM sys_goods g, sys_category c, sys_goods_category gc
         WHERE g.goods_id=gc.goods_id AND c.category_id=gc.category_id
     </sql>
@@ -48,7 +53,7 @@
     </select>
     <select id="selectByType" resultMap="BaseResultMap">
         <include refid="Base_Column_List"/>
-        AND category_name=#{value}
+        AND c.category_id=#{value}
         ORDER BY g.goods_id
     </select>
     <select id="selectByPrice" resultMap="BaseResultMap">
@@ -62,12 +67,14 @@
         LIKE #{msg}
         ORDER BY g.goods_id
     </select>
+    <select id="selectByAllMsg" resultMap="BaseResultMap">
+        <include refid="Base_Column_List"/>
+        AND isSale=IFNULL(#{isSale},isSale) AND c.category_id=IFNULL(#{typeId},c.category_id) AND price &lt;= IFNULL(#{price},price)
+        AND CONCAT(IFNULL(g.goods_id,''), IFNULL(goods_name,''), IFNULL(goods_remark,''))
+        LIKE #{msg}
+        ORDER BY g.goods_id
+    </select>
 
-    <resultMap id="TypeResultMap" type="cn.edu.guet.backendmanagement.bean.SysCategory">
-        <id column="category_id" jdbcType="BIGINT" property="id"/>
-        <result column="category_name" jdbcType="VARCHAR" property="name"/>
-        <result column="category_remark" jdbcType="VARCHAR" property="remark"/>
-    </resultMap>
     <select id="findAllType" resultMap="TypeResultMap">
         SELECT *
         FROM sys_category

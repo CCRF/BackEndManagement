@@ -29,9 +29,9 @@ public class SysGoodsController {
     }
 
     @GetMapping("/selectGoodsByType")
-    public HttpResult selectGoodsByType(@RequestParam String typeName) {
-        System.out.println(sysGoodsService.selectByType(typeName));
-        return HttpResult.ok(sysGoodsService.selectByType(typeName));
+    public HttpResult selectGoodsByType(@RequestParam long typeId) {
+        System.out.println(sysGoodsService.selectByType(typeId));
+        return HttpResult.ok(sysGoodsService.selectByType(typeId));
     }
 
     @GetMapping("/selectGoodsByPrice")
@@ -42,9 +42,14 @@ public class SysGoodsController {
 
     @GetMapping("/selectGoodsByMsg")
     public HttpResult selectGoodsByMsg(@RequestParam String msg) {
-        msg = "%" + msg + "%";
         System.out.println(sysGoodsService.selectByMsg(msg));
         return HttpResult.ok(sysGoodsService.selectByMsg(msg));
+    }
+
+    @GetMapping("/selectGoodsByAllMsg")
+    public HttpResult selectGoodsByAllMsg(@RequestParam String isSale, @RequestParam String typeId, @RequestParam String price, @RequestParam String msg) {
+        System.out.println(sysGoodsService.selectByAllMsg(isSale, typeId, price, msg));
+        return HttpResult.ok(sysGoodsService.selectByAllMsg(isSale, typeId, price, msg));
     }
 
     @PostMapping("/deleteGoods")
