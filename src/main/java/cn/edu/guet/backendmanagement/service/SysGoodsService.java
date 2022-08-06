@@ -20,8 +20,6 @@ public interface SysGoodsService {
 
     boolean deleteGoodsById(long id);
 
-    boolean deleteGoodsById(long id);
-
     List<SysCategory> findAllType();
 
     boolean deleteCategoryById(long id);
