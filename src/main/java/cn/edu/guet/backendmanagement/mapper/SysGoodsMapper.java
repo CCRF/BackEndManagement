@@ -3,6 +3,7 @@ package cn.edu.guet.backendmanagement.mapper;
 import cn.edu.guet.backendmanagement.bean.SysCategory;
 import cn.edu.guet.backendmanagement.bean.SysGoods;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,9 +15,10 @@ import java.util.List;
 public interface SysGoodsMapper {
     List<SysGoods> findAll();
     List<SysGoods> selectByIsSale(int isSale);
-    List<SysGoods> selectByType(String typeName);
+    List<SysGoods> selectByType(long typeId);
     List<SysGoods> selectByPrice(double price);
     List<SysGoods> selectByMsg(String msg);
+    List<SysGoods> selectByAllMsg(@Param(value = "isSale") String isSale,@Param(value = "typeId") String typeId,@Param(value = "price") String price,@Param(value = "msg") String msg);
 
 //    boolean insertGoods();
 //    boolean insertCategory();

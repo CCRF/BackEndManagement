@@ -9,7 +9,16 @@ import java.util.Objects;
 public class SysCategory {
     private Long id;
     private String name;
+    private String nickname;
     private String remark;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public Long getId() {
         return id;
@@ -40,12 +49,12 @@ public class SysCategory {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SysCategory that = (SysCategory) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(remark, that.remark);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(nickname, that.nickname) && Objects.equals(remark, that.remark);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, remark);
+        return Objects.hash(id, name, nickname, remark);
     }
 
     @Override
@@ -53,6 +62,7 @@ public class SysCategory {
         return "SysCategory{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';
     }
