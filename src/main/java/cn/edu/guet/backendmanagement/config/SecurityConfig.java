@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 跨域预检请求
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/login","/wx/**", "/images/**").permitAll()
 
                 // 其他所有请求需要身份认证
                 .anyRequest().authenticated();
@@ -75,5 +75,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
+    /**
+     * 配置地址栏不能识别 // 的情况
+     *
+     * @return
+     */
+//    @Bean
+//    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+//        StrictHttpFirewall firewall = new StrictHttpFirewall();
+//        //此处可添加别的规则,目前只设置 允许双 //
+//        firewall.setAllowUrlEncodedDoubleSlash(true);
+//        return firewall;
+//    }
 
 }

@@ -32,7 +32,6 @@ public class SysMenuController {
     public HttpResult findNavTree(@RequestParam String userName) {
         System.out.println("查找菜单树：" + userName);
         List<SysMenu> sysMenus = sysMenuService.findTree(userName, 1);
-        System.out.println("1: "+sysMenus);
         return HttpResult.ok(sysMenus);
     }
 }

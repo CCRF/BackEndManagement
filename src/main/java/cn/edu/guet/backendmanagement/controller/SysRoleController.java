@@ -71,6 +71,12 @@ public class SysRoleController {
     }
 
     @PreAuthorize("hasAuthority('sys:user:edit')")
+    @GetMapping("getNewMsgByName/{name}")
+    public HttpResult getNewMsgByName(@PathVariable String name) {
+        return HttpResult.ok(sysRoleService.getNewMsgByName(name));
+    }
+
+    @PreAuthorize("hasAuthority('sys:user:edit')")
     @PostMapping("updateName")
     public HttpResult updateName(@RequestBody SysRole sysRole) {
 
