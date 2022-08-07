@@ -2,6 +2,7 @@ package cn.edu.guet.backendmanagement.controller;
 
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SysGoodsService;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,12 @@ public class SysGoodsController {
     public HttpResult findAllGoods() {
 //        System.out.println(sysGoodsService.findAll());
         return HttpResult.ok(sysGoodsService.findAll());
+    }
+
+    @GetMapping("/selectGoodsById")
+    public HttpResult selectGoodsById(long id) {
+        System.out.println(sysGoodsService.selectById(id));
+        return HttpResult.ok(sysGoodsService.selectById(id));
     }
 
     @GetMapping("/selectGoodsByIsSale")
@@ -50,6 +57,12 @@ public class SysGoodsController {
     public HttpResult selectGoodsByAllMsg(@RequestParam String isSale, @RequestParam String typeId, @RequestParam String price, @RequestParam String msg) {
         System.out.println(sysGoodsService.selectByAllMsg(isSale, typeId, price, msg));
         return HttpResult.ok(sysGoodsService.selectByAllMsg(isSale, typeId, price, msg));
+    }
+
+    @PostMapping("/insertGoods")
+    public HttpResult insertGoods(@RequestBody ObjectNode json) {
+//        System.out.println(id);
+        return HttpResult.ok(sysGoodsService.insertGoods(json));
     }
 
     @PostMapping("/deleteGoods")

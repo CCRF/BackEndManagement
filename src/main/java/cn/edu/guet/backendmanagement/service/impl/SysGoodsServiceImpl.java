@@ -4,6 +4,7 @@ import cn.edu.guet.backendmanagement.bean.SysCategory;
 import cn.edu.guet.backendmanagement.bean.SysGoods;
 import cn.edu.guet.backendmanagement.mapper.SysGoodsMapper;
 import cn.edu.guet.backendmanagement.service.SysGoodsService;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,11 @@ public class SysGoodsServiceImpl implements SysGoodsService {
     @Override
     public List<SysGoods> findAll() {
         return sysGoodsMapper.findAll();
+    }
+
+    @Override
+    public SysGoods selectById(long id) {
+        return sysGoodsMapper.selectById(id);
     }
 
     @Override
@@ -55,6 +61,14 @@ public class SysGoodsServiceImpl implements SysGoodsService {
             price = null;
         msg = "%" + msg + "%";
         return sysGoodsMapper.selectByAllMsg(isSale, typeId, price, msg);
+    }
+
+    @Override
+    public boolean insertGoods(ObjectNode json) {
+        System.out.println(json.get("id"));
+        sysGoodsMapper.insertGoods(json.get("id").toString(), json.get("name").toString(), json.get("price").toString(), json.get("isSale").toString(), json.get("picture").toString(), json.get("remark").toString());
+        sysGoodsMapper.insertGC(json.get("id").toString(), json.get("id").toString(), json.get("type").toString());
+        return true;
     }
 
     @Override
