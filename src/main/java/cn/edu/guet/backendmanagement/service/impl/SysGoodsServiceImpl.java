@@ -65,9 +65,19 @@ public class SysGoodsServiceImpl implements SysGoodsService {
 
     @Override
     public boolean insertGoods(ObjectNode json) {
-        System.out.println(json.get("id"));
+//        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@"+json.get("id").toString()+ json.get("name").toString()+ json.get("price").toString()+ json.get("isSale").toString()+ json.get("picture").toString()+ json.get("remark").toString());
         sysGoodsMapper.insertGoods(json.get("id").toString(), json.get("name").toString(), json.get("price").toString(), json.get("isSale").toString(), json.get("picture").toString(), json.get("remark").toString());
         sysGoodsMapper.insertGC(json.get("id").toString(), json.get("id").toString(), json.get("type").toString());
+        return true;
+    }
+
+    @Override
+    public boolean updateGoods(SysGoods sysGoods) {
+        System.out.println(sysGoods.toString());
+        long id = sysGoods.getId();
+        long type = sysGoods.getType().get(0).getId();
+        sysGoodsMapper.updateGoodsById(id, sysGoods.getName(), sysGoods.getPrice(), sysGoods.getIsSale(), sysGoods.getPicture(), sysGoods.getRemark());
+        sysGoodsMapper.updateGCByGId(id, type);
         return true;
     }
 

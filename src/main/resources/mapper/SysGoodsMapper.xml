@@ -25,13 +25,23 @@
     <insert id="insertGoods">
         INSERT
         INTO sys_goods(goods_id, goods_name, price, isSale, goods_remark, picture)
-        VALUES(#{id},#{name},#{price},#{isSale},#{remark},#{picture})
+        VALUES(#{id},REPLACE(#{name},'"',''),#{price},#{isSale},REPLACE(#{remark},'"',''),REPLACE(#{picture},'"',''))
     </insert>
     <insert id="insertGC">
         INSERT
         INTO sys_goods_category(id,goods_id,category_id)
         VALUES(#{id},#{id},#{type})
     </insert>
+    <update id="updateGCByGId">
+        UPDATE sys_goods_category
+        SET category_id=#{cid}
+        WHERE goods_id=#{gid}
+    </update>
+    <update id="updateGoodsById">
+        UPDATE sys_goods
+        SET goods_name=#{name},price=#{price},isSale=#{isSale},goods_remark=#{remark},picture=#{picture}
+        WHERE goods_id=#{id}
+    </update>
     <delete id="deleteGoodsById">
         DELETE
         FROM sys_goods

@@ -1,5 +1,6 @@
 package cn.edu.guet.backendmanagement.controller;
 
+import cn.edu.guet.backendmanagement.bean.SysGoods;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SysGoodsService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -55,7 +56,7 @@ public class SysGoodsController {
 
     @GetMapping("/selectGoodsByAllMsg")
     public HttpResult selectGoodsByAllMsg(@RequestParam String isSale, @RequestParam String typeId, @RequestParam String price, @RequestParam String msg) {
-        System.out.println(sysGoodsService.selectByAllMsg(isSale, typeId, price, msg));
+//        System.out.println(sysGoodsService.selectByAllMsg(isSale, typeId, price, msg));
         return HttpResult.ok(sysGoodsService.selectByAllMsg(isSale, typeId, price, msg));
     }
 
@@ -63,6 +64,12 @@ public class SysGoodsController {
     public HttpResult insertGoods(@RequestBody ObjectNode json) {
 //        System.out.println(id);
         return HttpResult.ok(sysGoodsService.insertGoods(json));
+    }
+
+    @PostMapping("/updateGoods")
+    public HttpResult updateGoods(@RequestBody SysGoods sysGoods) {
+//        System.out.println(id);
+        return HttpResult.ok(sysGoodsService.updateGoods(sysGoods));
     }
 
     @PostMapping("/deleteGoods")
@@ -73,7 +80,7 @@ public class SysGoodsController {
 
     @GetMapping("/findAllType")
     public HttpResult findAllType() {
-        System.out.println(sysGoodsService.findAllType());
+//        System.out.println(sysGoodsService.findAllType());
         return HttpResult.ok(sysGoodsService.findAllType());
     }
 }

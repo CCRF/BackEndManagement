@@ -19,7 +19,7 @@ public interface SysGoodsService {
     List<SysGoods> selectByMsg(String msg);
     List<SysGoods> selectByAllMsg(String isSale, String typeId, String price, String msg);
     boolean insertGoods(ObjectNode json);
-
+    boolean updateGoods(SysGoods sysGoods);
     boolean deleteGoodsById(long id);
 
     List<SysCategory> findAllType();
