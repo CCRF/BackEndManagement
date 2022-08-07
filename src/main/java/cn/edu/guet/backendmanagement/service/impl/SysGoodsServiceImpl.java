@@ -72,6 +72,16 @@ public class SysGoodsServiceImpl implements SysGoodsService {
     }
 
     @Override
+    public boolean updateGoods(SysGoods sysGoods) {
+        System.out.println(sysGoods.toString());
+        long id = sysGoods.getId();
+        long type = sysGoods.getType().get(0).getId();
+        sysGoodsMapper.updateGoodsById(id, sysGoods.getName(), sysGoods.getPrice(), sysGoods.getIsSale(), sysGoods.getPicture(), sysGoods.getRemark());
+        sysGoodsMapper.updateGCByGId(id, type);
+        return true;
+    }
+
+    @Override
     public boolean deleteGoodsById(long id) {
         sysGoodsMapper.deleteGCByGId(id);
         sysGoodsMapper.deleteGoodsById(id);

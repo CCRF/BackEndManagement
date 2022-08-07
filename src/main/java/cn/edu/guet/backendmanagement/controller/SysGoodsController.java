@@ -1,5 +1,6 @@
 package cn.edu.guet.backendmanagement.controller;
 
+import cn.edu.guet.backendmanagement.bean.SysGoods;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SysGoodsService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -63,6 +64,12 @@ public class SysGoodsController {
     public HttpResult insertGoods(@RequestBody ObjectNode json) {
 //        System.out.println(id);
         return HttpResult.ok(sysGoodsService.insertGoods(json));
+    }
+
+    @PostMapping("/updateGoods")
+    public HttpResult updateGoods(@RequestBody SysGoods sysGoods) {
+//        System.out.println(id);
+        return HttpResult.ok(sysGoodsService.updateGoods(sysGoods));
     }
 
     @PostMapping("/deleteGoods")
