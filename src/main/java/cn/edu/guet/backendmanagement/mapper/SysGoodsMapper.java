@@ -14,21 +14,21 @@ import java.util.List;
 @Mapper
 public interface SysGoodsMapper {
     List<SysGoods> findAll();
+    SysGoods selectById(long id);
     List<SysGoods> selectByIsSale(int isSale);
     List<SysGoods> selectByType(long typeId);
     List<SysGoods> selectByPrice(double price);
     List<SysGoods> selectByMsg(String msg);
     List<SysGoods> selectByAllMsg(@Param(value = "isSale") String isSale,@Param(value = "typeId") String typeId,@Param(value = "price") String price,@Param(value = "msg") String msg);
-
-//    boolean insertGoods();
-//    boolean insertCategory();
+    boolean insertGoods(@Param(value = "id") String id, @Param(value = "name") String name, @Param(value = "price") String price, @Param(value = "isSale") String isSale, @Param(value = "picture") String picture, @Param(value = "remark") String remark);
+    boolean insertGC(@Param(value = "id") String id, @Param(value = "id") String gid, @Param(value = "type") String type);
 //    boolean updateGoodsById();
-//    boolean updateCategoryById();
     boolean deleteGoodsById(long id);
     boolean deleteGCByGId(long id);
 
     List<SysCategory> findAllType();
-
+//    boolean insertCategory();
+//    boolean updateCategoryById();
     boolean deleteCategoryById(long id);
     boolean deleteGCByCId(long id);
 }

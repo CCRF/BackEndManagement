@@ -22,6 +22,16 @@
         FROM sys_goods g, sys_category c, sys_goods_category gc
         WHERE g.goods_id=gc.goods_id AND c.category_id=gc.category_id
     </sql>
+    <insert id="insertGoods">
+        INSERT
+        INTO sys_goods(goods_id, goods_name, price, isSale, goods_remark, picture)
+        VALUES(#{id},#{name},#{price},#{isSale},#{remark},#{picture})
+    </insert>
+    <insert id="insertGC">
+        INSERT
+        INTO sys_goods_category(id,goods_id,category_id)
+        VALUES(#{id},#{id},#{type})
+    </insert>
     <delete id="deleteGoodsById">
         DELETE
         FROM sys_goods
@@ -79,6 +89,11 @@
         SELECT *
         FROM sys_category
         ORDER BY category_id
+    </select>
+    <select id="selectById" resultMap="BaseResultMap">
+        <include refid="Base_Column_List"/>
+        AND g.goods_id=#{value}
+        ORDER BY g.goods_id
     </select>
 
 </mapper>
