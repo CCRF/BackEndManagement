@@ -25,7 +25,7 @@
     <insert id="insertGoods">
         INSERT
         INTO sys_goods(goods_id, goods_name, price, isSale, goods_remark, picture)
-        VALUES(#{id},#{name},#{price},#{isSale},#{remark},#{picture})
+        VALUES(#{id},REPLACE(#{name},'"',''),#{price},#{isSale},REPLACE(#{remark},'"',''),REPLACE(#{picture},'"',''))
     </insert>
     <insert id="insertGC">
         INSERT

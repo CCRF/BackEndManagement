@@ -55,7 +55,7 @@ public class SysGoodsController {
 
     @GetMapping("/selectGoodsByAllMsg")
     public HttpResult selectGoodsByAllMsg(@RequestParam String isSale, @RequestParam String typeId, @RequestParam String price, @RequestParam String msg) {
-        System.out.println(sysGoodsService.selectByAllMsg(isSale, typeId, price, msg));
+//        System.out.println(sysGoodsService.selectByAllMsg(isSale, typeId, price, msg));
         return HttpResult.ok(sysGoodsService.selectByAllMsg(isSale, typeId, price, msg));
     }
 
@@ -73,7 +73,7 @@ public class SysGoodsController {
 
     @GetMapping("/findAllType")
     public HttpResult findAllType() {
-        System.out.println(sysGoodsService.findAllType());
+//        System.out.println(sysGoodsService.findAllType());
         return HttpResult.ok(sysGoodsService.findAllType());
     }
 }

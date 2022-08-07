@@ -65,7 +65,7 @@ public class SysGoodsServiceImpl implements SysGoodsService {
 
     @Override
     public boolean insertGoods(ObjectNode json) {
-        System.out.println(json.get("id"));
+//        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@"+json.get("id").toString()+ json.get("name").toString()+ json.get("price").toString()+ json.get("isSale").toString()+ json.get("picture").toString()+ json.get("remark").toString());
         sysGoodsMapper.insertGoods(json.get("id").toString(), json.get("name").toString(), json.get("price").toString(), json.get("isSale").toString(), json.get("picture").toString(), json.get("remark").toString());
         sysGoodsMapper.insertGC(json.get("id").toString(), json.get("id").toString(), json.get("type").toString());
         return true;
