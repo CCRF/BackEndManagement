@@ -5,19 +5,29 @@ import cn.edu.guet.backendmanagement.bean.SetMeal;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.mapper.SetMealMapper;
 import cn.edu.guet.backendmanagement.service.SetMealService;
+import cn.edu.guet.backendmanagement.util.LinuxLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+
+import java.io.IOException;
 import java.util.List;
+
+
 /**
  * @Author yj
- * @Date    2022/8/4 18:40
- * @version: 1.0
+ * @Date    2022/8/8 20:10
+ * @version: 1.3
  */
 @Service
 public class SetMealServiceImpl implements SetMealService {
     @Autowired
     private SetMealMapper setMealMapper;
+    @Autowired
+    private LinuxLogin linuxLogin;
+
+
 
     @Override
     public List<SetMeal> selectAllMeal() {
@@ -37,12 +47,8 @@ public class SetMealServiceImpl implements SetMealService {
     @Override
     public HttpResult insertMeal(SetMeal setMeal) {
         int i = setMealMapper.insertMeal(setMeal);
-//        if (i>0){
-//            return HttpResult.ok("插入成功");
-//        }else {
-//            return HttpResult.error("插入失败了");
-//        }
-        return i>0 ? HttpResult.ok("更新成功") : HttpResult.error("更新失败");
+        System.out.println(i);
+        return i>0 ? HttpResult.ok("插入成功") : HttpResult.error("插入失败");
     }
 
     public SetMeal findById(Integer id){
@@ -60,11 +66,6 @@ public class SetMealServiceImpl implements SetMealService {
         return i>0 ? HttpResult.ok("更新成功") : HttpResult.error("更新失败");
     }
 
-
-//    public List<Good> getAllGoods() {
-//        return setMealMapper.getAllGoods();
-//    }
-
     @Override
     public PageBean<SetMeal> selectByPage(Integer page, Integer size) {
         Integer begin = (page-1)*size;
@@ -77,4 +78,29 @@ public class SetMealServiceImpl implements SetMealService {
 
         return pageBean;
     }
+
+    @Override
+    public String[] FindImageList() {
+        System.out.println("方法被调用了");
+        String path = "/usr/local/img/setmeal/";
+        String[] list = linuxLogin.FindImageList(path);
+        return list;
+    }
+
+
+    @Override
+    public String uploadImage(MultipartFile image) throws IOException {
+        System.out.println("开始上传");
+        String filePath = "/usr/local/img/setmeal/";
+        String s = linuxLogin.uploadVideo(image,filePath);
+        if (s!=null){
+            System.out.println(s);
+            System.out.println("上传成功");
+        }else {
+            System.out.println("上传失败");
+        }
+        return s;
+    }
+
+
 }
