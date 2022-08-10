@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.guet.backendmanagement.mapper.SysLogMapper">
+    <resultMap id="SysLogMap" type="cn.edu.guet.backendmanagement.bean.SysLog">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="operation" property="operation"/>
+        <result column="method" property="method"/>
+        <result column="params" property="params"/>
+        <result column="time" property="time"/>
+        <result column="ip" property="ip"/>
+        <result column="create_by" property="createBy"/>
+        <result column="last_update_by" property="lastUpdateBy"/>
+        <result column="last_update_time" property="lastUpdateTime"/>
+
+    </resultMap>
+
+    <insert id="save">
+        INSERT INTO sys_log(user_name, method, params, ip, time) VALUES(#{userName}, #{method}, #{params}, #{ip}, #{time})
+    </insert>
+</mapper>
