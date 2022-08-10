@@ -3,7 +3,9 @@ package cn.edu.guet.backendmanagement.service;
 import cn.edu.guet.backendmanagement.bean.SysCategory;
 import cn.edu.guet.backendmanagement.bean.SysGoods;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -25,4 +27,6 @@ public interface SysGoodsService {
     List<SysCategory> findAllType();
 
     boolean deleteCategoryById(long id);
+
+    String uploadImage(MultipartFile image, String type) throws IOException;
 }
