@@ -7,8 +7,8 @@ import java.util.List;
 
 /**
  * @Author yj
- * @Date    2022/8/4 18:40
- * @version: 1.0
+ * @Date    2022/8/10 23:30
+ * @version: 1.4
  */
 @Mapper
 public interface SetMealMapper {
