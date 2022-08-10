@@ -25,16 +25,18 @@ public interface SetMealMapper {
     @Select("select * from sys_setmeal where id = #{id}")
     SetMeal findById(Integer id);
 
-    @Select("select * from sys_setmeal where name like CONCAT('%',#{name},'%')")
-    List<SetMeal> selectByNames(String name);
+    @Select("select * from sys_setmeal where name like CONCAT('%',#{name},'%')LIMIT #{page},#{size}")
+    List<SetMeal> selectByNames(String name,Integer page,Integer size);
+
+    @Select("select count(*) from sys_setmeal where name like CONCAT('%','香','%')")
+    Integer selectNameList(String name);
+
 
     @Update("update sys_setmeal set name = #{name}, price = #{price}," +
             " contain = #{contain}, description = #{description}, sale = #{sale}, flavor = #{flavor}, picture = #{picture}" +
             "where id = #{id}")
     int updateMeal(SetMeal setMeal);
 
-//    @Select("select * from sys_goods")
-//    List<Good> getAllGoods();
 
     @Select("SELECT * FROM `sys_setmeal` LIMIT #{page} ,#{size}")
     List<SetMeal> selectByPage(Integer page, Integer size);
@@ -43,10 +45,4 @@ public interface SetMealMapper {
     Integer selectTotalCount();
 }
 
-//    private Integer id;
-//    private String meal_name;
-//    private Double price;
-//    private String contain;
-//    private String description;
-//    public Integer sale;
-//    private String flavor;
+

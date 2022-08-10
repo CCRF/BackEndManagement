@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -35,8 +36,17 @@ public class SetMealServiceImpl implements SetMealService {
     }
 
     @Override
-    public HttpResult deleteById(Integer id) {
+    public HttpResult deleteById(Integer id,String imageUrl) {
         int i = setMealMapper.deleteById(id);
+        //删除套餐图片
+        File file = new File(imageUrl);
+        if (file.isFile()){
+            System.out.println("删除套餐图片");
+            file.delete();
+        }else {
+            System.out.println("文件删除失败");
+            return HttpResult.error("文件删除失败");
+        }
         if (i>0){
             return HttpResult.ok("删除成功");
         }else {
@@ -56,8 +66,15 @@ public class SetMealServiceImpl implements SetMealService {
     }
 
     @Override
-    public List<SetMeal> selectByNames(String name) {
-        return setMealMapper.selectByNames(name);
+    public PageBean<SetMeal> selectByNames(String name,Integer page,Integer size) {
+        Integer begin = (page-1)*size;
+        Integer count = setMealMapper.selectNameList(name);
+        List<SetMeal> meals = setMealMapper.selectByNames(name, begin, size);
+        PageBean<SetMeal> pageBean =new PageBean<>();
+        pageBean.setRows(meals);
+        pageBean.setTotalCount(count);
+        return pageBean;
+
     }
 
     @Override

@@ -16,13 +16,13 @@ import java.util.List;
 public interface SetMealService {
      List<SetMeal> selectAllMeal();
 
-    HttpResult deleteById(Integer id);
+    HttpResult deleteById(Integer id,String imageUrl);
 
     HttpResult insertMeal(SetMeal setMeal);
 
     SetMeal findById(Integer id);
 
-    List<SetMeal> selectByNames(String name);
+    PageBean<SetMeal> selectByNames(String name,Integer page,Integer size);
 
     HttpResult updateMeal(SetMeal setMeal);
 

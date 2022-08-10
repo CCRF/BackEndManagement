@@ -33,9 +33,11 @@ public class SetMealController {
 
 
     @PostMapping("/deleteById")
-    @PreAuthorize("hasAuthority('sys:setmeal:delete')")//
-    public HttpResult deleteById(@RequestBody Integer id){
-        return service.deleteById(id);
+    @PreAuthorize("hasAuthority('sys:setmeal:delete')")
+    public HttpResult deleteById(@RequestParam("id") Integer id, @RequestParam("imageUrl") String imageUrl){
+//        System.out.println(id);
+//        System.out.println(imageUrl);
+        return service.deleteById(id,imageUrl);
     }
 
     @PostMapping("/insert")
@@ -51,9 +53,9 @@ public class SetMealController {
     }
 
     //
-    @GetMapping("/selectByName/{name}")
-    public HttpResult selectByNames(@PathVariable String name){
-        List<SetMeal> meals = service.selectByNames(name);
+    @GetMapping("/selectByName/{name}/{page}/{size}")
+    public HttpResult selectByNames(@PathVariable String name,@PathVariable Integer page,@PathVariable Integer size){
+        PageBean<SetMeal> meals = service.selectByNames(name,page,size);
         return HttpResult.ok(meals);
     }
 
