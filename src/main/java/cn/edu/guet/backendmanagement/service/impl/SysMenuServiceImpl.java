@@ -141,7 +141,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     public HttpResult updateName(SysMenu sysMenu) {
 
         String name = sysMenu.getName();
-        String url = sysMenu.getUrl();
 
         Long id = sysMenu.getId();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -154,7 +153,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         sysMenu.setLastUpdateBy(updateName);
         String lastUpdateBy = sysMenu.getLastUpdateBy();
 
-        sysMenuMapper.updateName(name, url, id, lastUpdateTime, lastUpdateBy);
+        sysMenuMapper.updateName(name, id, lastUpdateTime, lastUpdateBy);
         return HttpResult.ok();
     }
 }
