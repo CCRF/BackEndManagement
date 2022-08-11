@@ -1,5 +1,7 @@
 package cn.edu.guet.backendmanagement.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -14,8 +16,11 @@ import cn.edu.guet.backendmanagement.mapper.SysUserMapper;
 import cn.edu.guet.backendmanagement.mapper.SysUserRoleMapper;
 import cn.edu.guet.backendmanagement.service.SysMenuService;
 import cn.edu.guet.backendmanagement.service.SysUserService;
+import cn.edu.guet.backendmanagement.util.LinuxLogin;
+import cn.edu.guet.backendmanagement.util.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Author Liwei
@@ -32,6 +37,8 @@ public class SysUserServiceImpl implements SysUserService {
     private SysUserRoleMapper sysUserRoleMapper;
     @Autowired
     private SysMenuService sysMenuService;
+    @Autowired
+    private LinuxLogin linuxLogin;
 
 
     @Override
@@ -84,6 +91,12 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public boolean updateUser(SysUser sysUser) {
+        File tempFile =new File(sysUser.getAvatar().trim());
+        String fileName = tempFile.getName();
+        sysUser.setAvatar("https://g1.glypro19.com/img/avatar/"+fileName);
+        String salt = PasswordUtils.getSalt();
+        sysUser.setPassword(PasswordUtils.encode(sysUser.getPassword(),salt));
+        sysUser.setSalt(salt);
         if(sysUserMapper.updateUser(sysUser)){
             return true;
         }else {
@@ -93,6 +106,12 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public boolean insertUser(SysUser sysUser) {
+        File file = new File(sysUser.getAvatar().trim());
+        String fileName = file.getName();
+        sysUser.setAvatar("https://g1.glypro19.com/img/avatar/"+fileName);
+        String salt = PasswordUtils.getSalt();
+        sysUser.setPassword(PasswordUtils.encode(sysUser.getPassword(),salt));
+        sysUser.setSalt(salt);
         if(sysUserMapper.insertUser(sysUser)){
             return true;
         }else {
@@ -132,4 +151,21 @@ public class SysUserServiceImpl implements SysUserService {
         }
         return perms;
     }
+
+    @Override
+    public String uploadImage(MultipartFile image) throws IOException {
+        System.out.println("开始上传");
+        String filePath = "/usr/local/img/avatar/";
+        String s = linuxLogin.uploadVideo(image,filePath);
+        if (s!=null){
+            System.out.println(s);
+            System.out.println("上传成功");
+        }else {
+            System.out.println("上传失败");
+        }
+        return s;
+    }
+
+
+
 }
