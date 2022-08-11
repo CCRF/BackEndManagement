@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 /**
  * 菜单控制器
  *
- * @Author Liwei
- * @Date 2021-08-16 09:20
+ * @Author zhh
+ * @Date 2022-08-10 09:20
  */
 @RestController
 @RequestMapping("menu")
@@ -24,7 +24,7 @@ public class SysMenuController {
     @Autowired
     private SysMenuService sysMenuService;
 
-//    @PreAuthorize("hasAuthority('sys:menu:view')")
+    //    @PreAuthorize("hasAuthority('sys:menu:view')")
     @GetMapping(value = "/findNavTree")
     public HttpResult findNavTree(@RequestParam String userName) {
         System.out.println("查找菜单树：" + userName);
@@ -40,21 +40,12 @@ public class SysMenuController {
     }
 
     @PreAuthorize("hasAuthority('sys:menu:view')")
-    @GetMapping("findAll/{page}/{size}")
-    public HttpResult finaAll(@PathVariable int page, @PathVariable int size){
-
-        PageBean<SysMenu> pageBean = sysMenuService.findAll(page,size);
-
-
-        return HttpResult.ok(pageBean);
-    }
-
-    @PreAuthorize("hasAuthority('sys:menu:view')")
-    @PostMapping(value = "/searchMsg")
+    @PostMapping("/searchMsg")
     public HttpResult searchMsg(@RequestBody String searchMsg) {
-        String msg="%"+searchMsg+"%";
+        String msg = "%" + searchMsg + "%";
         return HttpResult.ok(sysMenuService.searchMsg(msg));
     }
+
 
     @PreAuthorize("hasAuthority('sys:menu:delete')")
     @DeleteMapping("deleteMsg/{id}")
@@ -70,9 +61,9 @@ public class SysMenuController {
     @PostMapping("addMsg")
     public HttpResult addMsg(@RequestBody SysMenu sysMenu) {
 
-        if (sysMenu.getName().equals("")){
+        if (sysMenu.getName().equals("")) {
             return HttpResult.error("输入内容不能为空");
-        }else {
+        } else {
             int row = sysMenuService.addMsg(sysMenu);
 
             return row > 0 ? HttpResult.ok("添加成功") : HttpResult.error("添加失败");
@@ -83,9 +74,9 @@ public class SysMenuController {
     @PostMapping("updateName")
     public HttpResult updateName(@RequestBody SysMenu sysMenu) {
 
-        if (sysMenu.getName().equals("")){
+        if (sysMenu.getName().equals("")) {
             return HttpResult.error("输入内容不能为空");
-        }else {
+        } else {
             HttpResult httpResult = sysMenuService.updateName(sysMenu);
 
             return httpResult;

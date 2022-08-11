@@ -58,5 +58,7 @@ public interface SysRoleMapper {
     void deleteRoleMenu(Long id);
 
 
-    List<SysRole> searchMsg(@Param("msg") String msg);
+    List<SysRole> searchMsg(@Param("msg") String msg, @Param("begin") int begin, @Param("size") int size);
+
+    int searchTotalCount(@Param("msg") String msg);
 }
