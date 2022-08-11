@@ -4,10 +4,13 @@ import cn.edu.guet.backendmanagement.bean.SysCategory;
 import cn.edu.guet.backendmanagement.bean.SysGoods;
 import cn.edu.guet.backendmanagement.mapper.SysGoodsMapper;
 import cn.edu.guet.backendmanagement.service.SysGoodsService;
+import cn.edu.guet.backendmanagement.util.LinuxLogin;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -19,6 +22,8 @@ public class SysGoodsServiceImpl implements SysGoodsService {
 
     @Autowired
     private SysGoodsMapper sysGoodsMapper;
+    @Autowired
+    private LinuxLogin linuxLogin;
 
     @Override
     public List<SysGoods> findAll() {
@@ -98,5 +103,20 @@ public class SysGoodsServiceImpl implements SysGoodsService {
         sysGoodsMapper.deleteGCByCId(id);
         sysGoodsMapper.deleteCategoryById(id);
         return true;
+    }
+
+    @Override
+    public String uploadImage(MultipartFile image, String type) throws IOException {
+        System.out.println("开始上传" + type);
+        String filePath = "user/local/img/" + type + "/";
+        String s = linuxLogin.uploadVideo(image, filePath);
+        if (s != null){
+            System.out.println(s);
+            System.out.println("上传成功");
+        }
+        else {
+            System.out.println("上传失败");
+        }
+        return s;
     }
 }
