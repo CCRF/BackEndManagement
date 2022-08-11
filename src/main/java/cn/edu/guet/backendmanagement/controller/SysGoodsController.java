@@ -6,6 +6,9 @@ import cn.edu.guet.backendmanagement.service.SysGoodsService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * @author HHS
@@ -82,5 +85,17 @@ public class SysGoodsController {
     public HttpResult findAllType() {
 //        System.out.println(sysGoodsService.findAllType());
         return HttpResult.ok(sysGoodsService.findAllType());
+    }
+
+    @PostMapping("/upload")
+    public HttpResult uploadImage(@RequestParam MultipartFile file, @RequestParam String type) {
+        System.out.println(file);
+        try {
+            String image = sysGoodsService.uploadImage(file, type);
+            return HttpResult.ok(image);
+        }
+        catch (IOException e) {
+            return HttpResult.error("文件上传失败");
+        }
     }
 }

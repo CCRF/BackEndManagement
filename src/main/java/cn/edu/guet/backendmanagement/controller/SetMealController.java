@@ -7,13 +7,15 @@ import cn.edu.guet.backendmanagement.service.SetMealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
  * @Author yj
- * @Date    2022/8/4 18:40
- * @version: 1.0
+ * @Date    2022/8/10 23:30
+ * @version: 1.4
  */
 @RestController
 @RequestMapping("/setMeal")
@@ -31,9 +33,11 @@ public class SetMealController {
 
 
     @PostMapping("/deleteById")
-    @PreAuthorize("hasAuthority('sys:setmeal:delete')")//
-    public HttpResult deleteById(@RequestBody Integer id){
-        return service.deleteById(id);
+    @PreAuthorize("hasAuthority('sys:setmeal:delete')")
+    public HttpResult deleteById(@RequestParam("id") Integer id, @RequestParam("imageUrl") String imageUrl){
+//        System.out.println(id);
+//        System.out.println(imageUrl);
+        return service.deleteById(id,imageUrl);
     }
 
     @PostMapping("/insert")
@@ -49,9 +53,9 @@ public class SetMealController {
     }
 
     //
-    @GetMapping("/selectByName/{name}")
-    public HttpResult selectByNames(@PathVariable String name){
-        List<SetMeal> meals = service.selectByNames(name);
+    @GetMapping("/selectByName/{name}/{page}/{size}")
+    public HttpResult selectByNames(@PathVariable String name,@PathVariable Integer page,@PathVariable Integer size){
+        PageBean<SetMeal> meals = service.selectByNames(name,page,size);
         return HttpResult.ok(meals);
     }
 
@@ -62,15 +66,27 @@ public class SetMealController {
     }
 
 
-//    @GetMapping("/goods")
-//    public HttpResult getAllGoods(){
-//        List<Good> goods = service.getAllGoods();
-//        return HttpResult.ok(goods);
-//    }
-
     @GetMapping("/page/{page}/{size}")
     public HttpResult selectByPage(@PathVariable Integer page,@PathVariable Integer size){
         PageBean<SetMeal> bean = service.selectByPage(page, size);
         return HttpResult.ok(bean);
+    }
+
+    @PostMapping("/upload")
+    public HttpResult uploadImage(@RequestParam("file") MultipartFile file){
+        System.out.println(file);
+        try {
+            String image = service.uploadImage(file);
+            return HttpResult.ok(image);
+        } catch (IOException e) {
+            return HttpResult.error("文件上传失败");
+        }
+    }
+
+    //获取文件列表
+    @GetMapping("/image")
+    public HttpResult FindImageList(){
+        String[] list = service.FindImageList();
+        return HttpResult.ok(list);
     }
 }

@@ -37,4 +37,11 @@ public class PasswordUtils {
 	public static String getSalt() {
 		return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);
 	}
+
+	public static void main(String[] args) {
+		String salt = getSalt();
+		System.out.println("salt = " + salt);
+		String yejian = encode("yejian", salt);
+		System.out.println("yejian = " + yejian);
+	}
 }
