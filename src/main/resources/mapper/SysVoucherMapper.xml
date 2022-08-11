@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.guet.backendmanagement.mapper.SysVoucherMapper">
+
+    <resultMap id="VoucherResultMap" type="cn.edu.guet.backendmanagement.bean.SysVoucher">
+        <id column="voucher_id" jdbcType="BIGINT" property="voucherId"/>
+        <result column="open_id" jdbcType="VARCHAR" property="openId"/>
+        <result column="voucher_name" jdbcType="DECIMAL" property="voucherName"/>
+        <result column="voucher_dated" jdbcType="TINYINT" property="voucherDated"/>
+        <result column="voucher_url" jdbcType="VARCHAR" property="voucherUrl"/>
+        <result column="voucher_type" jdbcType="VARCHAR" property="voucherType"/>
+        <collection property="voucherLimit" select="getLimitGoods" column="voucher_id" ofType="cn.edu.guet.backendmanagement.bean.SysGoods">
+            <id column="goods_id" jdbcType="BIGINT" property="id"/>
+            <result column="goods_name" jdbcType="VARCHAR" property="name"/>
+            <result column="price" jdbcType="DECIMAL" property="price"/>
+            <result column="isSale" jdbcType="TINYINT" property="isSale"/>
+            <result column="goods_remark" jdbcType="VARCHAR" property="remark"/>
+            <result column="picture" jdbcType="VARCHAR" property="picture"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="GoodsResultMap" type="cn.edu.guet.backendmanagement.bean.SysGoods">
+        <id column="goods_id" jdbcType="BIGINT" property="id"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="name"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="isSale" jdbcType="TINYINT" property="isSale"/>
+        <result column="goods_remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="picture" jdbcType="VARCHAR" property="picture"/>
+    </resultMap>
+
+    <select id="getLimitGoodsByVoucherId" resultMap="VoucherResultMap">
+        SELECT * FROM sys_voucher WHERE open_id = #{open_id}
+    </select>
+
+
+    <select id="getLimitGoods" resultMap="GoodsResultMap">
+        SELECT g.* FROM sys_limit_goods l INNER JOIN sys_goods g ON l.goods_id = g.goods_id WHERE l.voucher_id = #{voucher_id}
+
+    </select>
+
+
+
+
+
+</mapper>

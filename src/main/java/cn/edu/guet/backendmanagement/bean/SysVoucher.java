@@ -1,5 +1,6 @@
 package cn.edu.guet.backendmanagement.bean;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -21,14 +22,15 @@ public class SysVoucher {
     // 卡券类型
     private String voucherType;
     // 限定卡券使用商品
-    private String voucherLimit;
+    private List<SysGoods> voucherLimit;
+
 
     public SysVoucher (){
 
     }
 
     public SysVoucher(String voucherId, String openId, String voucherName, String voucherDated,
-                      String voucherUrl, String voucherType, String voucherLimit) {
+                      String voucherUrl, String voucherType, List<SysGoods> voucherLimit) {
         this.voucherId = voucherId;
         this.openId = openId;
         this.voucherName = voucherName;
@@ -86,11 +88,11 @@ public class SysVoucher {
         this.voucherType = voucherType;
     }
 
-    public String getVoucherLimit() {
+    public List<SysGoods> getVoucherLimit() {
         return voucherLimit;
     }
 
-    public void setVoucherLimit(String voucherLimit) {
+    public void setVoucherLimit(List<SysGoods> voucherLimit) {
         this.voucherLimit = voucherLimit;
     }
 
@@ -116,7 +118,7 @@ public class SysVoucher {
                 ", voucherDated='" + voucherDated + '\'' +
                 ", voucherUrl='" + voucherUrl + '\'' +
                 ", voucherType='" + voucherType + '\'' +
-                ", voucherLimit='" + voucherLimit + '\'' +
+                ", voucherLimit=" + voucherLimit +
                 '}';
     }
 }
