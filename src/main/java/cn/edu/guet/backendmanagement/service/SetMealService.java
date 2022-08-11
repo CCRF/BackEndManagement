@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @Author yj
- * @Date    2022/8/10 23:30
- * @version: 1.4
+ * @Date    2022/8/11 19：22
+ * @version: 1.5
  */
 public interface SetMealService {
      List<SetMeal> selectAllMeal();
@@ -31,5 +31,7 @@ public interface SetMealService {
     PageBean<SetMeal> selectByPage(Integer page, Integer size);
 
     String [] FindImageList();
+
+    boolean deleteFile(String file);
 
 }
