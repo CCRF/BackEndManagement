@@ -17,11 +17,10 @@
     </sql>
 
 
-
     <insert id="insertRoleMenu">
         insert into sys_role_menu(role_id, menu_id)
         values
-        <foreach collection="menuList" item="menuId" separator="," >
+        <foreach collection="menuList" item="menuId" separator=",">
             (#{id},#{menuId.id})
         </foreach>
     </insert>
@@ -49,8 +48,18 @@
 
 
     <select id="searchMsg" resultType="cn.edu.guet.backendmanagement.bean.SysRole">
-        select * from sys_role
-        where CONCAT(IFNULL(name,''),IFNULL(remark,''))
-                  LIKE #{msg}
+        select *
+        from sys_role
+        where CONCAT(IFNULL(name, ''), IFNULL(remark, ''))
+            LIKE #{msg}
+          and del_flag != -1
+        limit #{begin},#{size}
+    </select>
+    <select id="searchTotalCount" resultType="java.lang.Integer">
+        select count(*)
+        from sys_role
+        where CONCAT(IFNULL(name, ''))
+            LIKE #{msg}
+          and del_flag != -1
     </select>
 </mapper>

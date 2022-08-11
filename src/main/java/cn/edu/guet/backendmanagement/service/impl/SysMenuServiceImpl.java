@@ -18,8 +18,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 /**
- * @Author Liwei
- * @Date 2021-08-13 18:12
+ * @version 1.0
+ * @Author zhh
+ * @Date 2022-08-10 17:50
  */
 @Service
 public class SysMenuServiceImpl implements SysMenuService {
@@ -57,20 +58,9 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public PageBean<SysMenu> findAll(int currentPage, int pageSize) {
-        int begin = (currentPage - 1) * pageSize;
+    public List<SysMenu> searchMsg(String msg) {
 
-        int size = pageSize;
-        List<SysMenu> rows = sysMenuMapper.selectByPage(begin, size);
-
-        int totalCount = sysMenuMapper.selectTotalCount();
-
-        PageBean<SysMenu> pageBean = new PageBean<>();
-
-        pageBean.setRows(rows);
-        pageBean.setTotalCount(totalCount);
-
-        return pageBean;
+        return sysMenuMapper.searchMsg(msg);
     }
 
     private void findChildren(List<SysMenu> SysMenus, List<SysMenu> menus, int menuType) {
@@ -105,10 +95,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         return exist;
     }
 
-    @Override
-    public List<SysMenu> searchMsg(String msg) {
-        return sysMenuMapper.searchMsg(msg);
-    }
+
 
     @Override
     public HttpResult deleteMsg(Long id) {
@@ -149,6 +136,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         int row = sysMenuMapper.addMsg(sysMenu);
         return row;
     }
+
     @Override
     public HttpResult updateName(SysMenu sysMenu) {
 

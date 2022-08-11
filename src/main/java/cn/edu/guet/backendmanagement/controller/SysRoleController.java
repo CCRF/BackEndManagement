@@ -22,8 +22,8 @@ import java.util.List;
  * 角色控制器
  *
  * @author zhh
- * @Date 2022-07-30 11:25
  * @version 1.0
+ * @Date 2022-07-30 11:25
  */
 @RestController
 @RequestMapping("role")
@@ -34,7 +34,7 @@ public class SysRoleController {
 
     @PreAuthorize("hasAuthority('sys:role:view')")
     @GetMapping(value = "/findAll/{page}/{size}")
-    public HttpResult findAll(@PathVariable int page,@PathVariable int size) {
+    public HttpResult findAll(@PathVariable int page, @PathVariable int size) {
 
         PageBean<SysRole> pageBean = sysRoleService.selectByPage(page, size);
 
@@ -55,9 +55,9 @@ public class SysRoleController {
     @PostMapping("addMsg")
     public HttpResult addMsg(@RequestBody SysRole sysRole) {
 
-        if (sysRole.getRemark().equals("") & sysRole.getName().equals("")){
+        if (sysRole.getRemark().equals("") & sysRole.getName().equals("")) {
             return HttpResult.error("输入内容不能为空");
-        }else {
+        } else {
             int row = sysRoleService.addMsg(sysRole);
 
             return row > 0 ? HttpResult.ok("添加成功") : HttpResult.error("添加失败");
@@ -80,9 +80,9 @@ public class SysRoleController {
     @PostMapping("updateName")
     public HttpResult updateName(@RequestBody SysRole sysRole) {
 
-        if (sysRole.getRemark().equals("") & sysRole.getName().equals("")){
+        if (sysRole.getRemark().equals("") & sysRole.getName().equals("")) {
             return HttpResult.error("输入内容不能为空");
-        }else {
+        } else {
             HttpResult httpResult = sysRoleService.updateName(sysRole);
 
             return httpResult;
@@ -103,10 +103,10 @@ public class SysRoleController {
     }
 
     @PreAuthorize("hasAuthority('sys:role:view')")
-    @PostMapping(value = "/searchMsg")
-    public HttpResult searchMsg(@RequestBody String searchMsg) {
-        String msg="%"+searchMsg+"%";
-        return HttpResult.ok(sysRoleService.searchMsg(msg));
+    @PostMapping(value = "/searchMsg/{page}/{size}")
+    public HttpResult searchMsg(@RequestBody String searchMsg, @PathVariable int page, @PathVariable int size) {
+        String msg = "%" + searchMsg + "%";
+        return HttpResult.ok(sysRoleService.searchMsg(msg,page,size));
     }
 
 

@@ -14,8 +14,8 @@ import java.util.List;
  * 角色管理
  *
  * @author zhh
- * @Date 2022-07-30 11:25
  * @version 1.0
+ * @Date 2022-07-30 11:25
  */
 public interface SysRoleService {
 
@@ -35,9 +35,9 @@ public interface SysRoleService {
 
     HttpResult updateName(SysRole sysRole);
 
-    HttpResult updateRoleMenu(List<String> nameList,Long id);
+    HttpResult updateRoleMenu(List<String> nameList, Long id);
 
-    List<SysRole> searchMsg(String msg);
+    PageBean<SysRole> searchMsg(String msg, int page, int size);
 
     List<SysMenu> getNewMsgByName(String name);
 }
