@@ -3,10 +3,13 @@ package cn.edu.guet.backendmanagement.controller;
 import cn.edu.guet.backendmanagement.bean.SysUser;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SysUserService;
+import cn.edu.guet.backendmanagement.util.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -49,7 +52,6 @@ public class SysUserController {
     public HttpResult updateUser(@RequestBody SysUser sysUser){
         boolean isTrue = sysUserService.updateUser(sysUser);
         if(isTrue){
-            System.out.println("删除成功");
             return HttpResult.ok(true);
         }else {
             return HttpResult.ok(false);
@@ -92,6 +94,16 @@ public class SysUserController {
         return HttpResult.ok(sysUserService.findAllRole());
     }
 
+    @PostMapping("/upload")
+    public HttpResult uploadImage(@RequestParam("file") MultipartFile file){
+        System.out.println(file);
+        try {
+            String image = sysUserService.uploadImage(file);
+            return HttpResult.ok(image);
+        } catch (IOException e) {
+            return HttpResult.error("文件上传失败");
+        }
+    }
 
 }
 
