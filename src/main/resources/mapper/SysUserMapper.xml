@@ -67,7 +67,7 @@
 
     <select id="findUserByMsg" resultType="cn.edu.guet.backendmanagement.bean.SysUser">
         SELECT * FROM sys_user
-        WHERE CONCAT(IFNULL(name,''),IFNULL(nick_name,''),IFNULL(id,''),IFNULL(email,''),IFNULL(mobile,''))
+        WHERE CONCAT(IFNULL(name,''),IFNULL(nick_name,''),IFNULL(id,''),IFNULL(mobile,''))
                   LIKE #{msgs}
     </select>
 

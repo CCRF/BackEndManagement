@@ -7,10 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import cn.edu.guet.backendmanagement.bean.SysMenu;
-import cn.edu.guet.backendmanagement.bean.SysRole;
-import cn.edu.guet.backendmanagement.bean.SysUser;
-import cn.edu.guet.backendmanagement.bean.SysUserRole;
+import cn.edu.guet.backendmanagement.bean.*;
+import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.mapper.SysRoleMapper;
 import cn.edu.guet.backendmanagement.mapper.SysUserMapper;
 import cn.edu.guet.backendmanagement.mapper.SysUserRoleMapper;
@@ -81,8 +79,9 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public boolean deleteUserById(String id) {
+    public boolean deleteUserById(String id,String avatar) {
         if(sysUserMapper.deleteUserById(id)){
+            deleteImg(avatar);
             return true;
         }else {
             return false;
@@ -91,9 +90,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public boolean updateUser(SysUser sysUser) {
-        File tempFile =new File(sysUser.getAvatar().trim());
-        String fileName = tempFile.getName();
-        sysUser.setAvatar("https://g1.glypro19.com/img/avatar/"+fileName);
+        sysUser.setAvatar("https://g1.glypro19.com/img/avatar/"+imgName(sysUser.getAvatar()));
         String salt = PasswordUtils.getSalt();
         sysUser.setPassword(PasswordUtils.encode(sysUser.getPassword(),salt));
         sysUser.setSalt(salt);
@@ -106,9 +103,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public boolean insertUser(SysUser sysUser) {
-        File file = new File(sysUser.getAvatar().trim());
-        String fileName = file.getName();
-        sysUser.setAvatar("https://g1.glypro19.com/img/avatar/"+fileName);
+        sysUser.setAvatar("https://g1.glypro19.com/img/avatar/"+imgName(sysUser.getAvatar()));
         String salt = PasswordUtils.getSalt();
         sysUser.setPassword(PasswordUtils.encode(sysUser.getPassword(),salt));
         sysUser.setSalt(salt);
@@ -121,6 +116,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public List<SysUser> findUserById(String id) {
+
         return sysUserMapper.findUserById(id);
     }
 
@@ -166,6 +162,23 @@ public class SysUserServiceImpl implements SysUserService {
         return s;
     }
 
+    @Override
+    public boolean deleteImg(String path) {
+        File file = new File("/usr/local/img/avatar/"+imgName(path));
+        System.out.println("删除的路径"+file);
+        if (file.isFile()){
+            file.delete();
+            return true;
+        }else {
+            return false;
+        }
+    }
 
+    @Override
+    public String imgName(String path) {
+        File file = new File(path.trim());
+        String fileName = file.getName();
+        return fileName;
+    }
 
 }

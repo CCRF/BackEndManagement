@@ -3,6 +3,7 @@ package cn.edu.guet.backendmanagement.controller;
 import cn.edu.guet.backendmanagement.bean.SysUser;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SysUserService;
+import cn.edu.guet.backendmanagement.service.impl.SysUserServiceImpl;
 import cn.edu.guet.backendmanagement.util.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,9 +39,10 @@ public class SysUserController {
         return HttpResult.ok(sysUsers);
     }
 
-    @DeleteMapping("/deleteUser/{id}")
-    public HttpResult deleteUser(@PathVariable("id") String id){
-        boolean isTrue = sysUserService.deleteUserById(id);
+    @DeleteMapping("/deleteUser/{id}/{avatar}")
+    public HttpResult deleteUser(@PathVariable("id") String id,@PathVariable("avatar") String avatar){
+        System.out.println(avatar);
+        boolean isTrue = sysUserService.deleteUserById(id,avatar);
         if(isTrue){
             System.out.println("删除成功");
             return HttpResult.ok(true);
@@ -48,6 +50,7 @@ public class SysUserController {
             return HttpResult.ok(false);
         }
     }
+
     @PostMapping("/updateUser")
     public HttpResult updateUser(@RequestBody SysUser sysUser){
         boolean isTrue = sysUserService.updateUser(sysUser);
@@ -105,6 +108,18 @@ public class SysUserController {
         }
     }
 
+//    @GetMapping("/deleteImg")
+//    public HttpResult deleteImg(@RequestParam("path") String path){
+//        System.out.println("删除路径"+path);
+//       return HttpResult.ok(sysUserService.deleteImg(path));
+//
+//    }
+
+    @DeleteMapping("/deleteImg/{path}")
+    public HttpResult deleteImg(@PathVariable("path") String path){
+        System.out.println("删除路径"+path);
+        return HttpResult.ok(sysUserService.deleteImg(path));
+    }
 }
 
 
