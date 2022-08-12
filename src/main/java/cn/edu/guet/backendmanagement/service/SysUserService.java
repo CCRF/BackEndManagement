@@ -31,7 +31,7 @@ public interface SysUserService {
 
     List<SysUser> findAllUser();
 
-    boolean deleteUserById(String id);
+    boolean deleteUserById(String id,String avatar);
 
     boolean updateUser(SysUser sysUser);
 
@@ -46,5 +46,9 @@ public interface SysUserService {
     List<SysRole> findAllRole();
 
     String uploadImage(MultipartFile image) throws IOException;
+
+    boolean deleteImg(String path);
+
+    String imgName(String path);
 
 }
