@@ -33,30 +33,6 @@ public class SysGoodsController {
         return HttpResult.ok(sysGoodsService.selectById(id));
     }
 
-    @GetMapping("/selectGoodsByIsSale")
-    public HttpResult selectGoodsByIsSale(@RequestParam int isSale) {
-        System.out.println(sysGoodsService.selectByIsSale(isSale));
-        return HttpResult.ok(sysGoodsService.selectByIsSale(isSale));
-    }
-
-    @GetMapping("/selectGoodsByType")
-    public HttpResult selectGoodsByType(@RequestParam long typeId) {
-        System.out.println(sysGoodsService.selectByType(typeId));
-        return HttpResult.ok(sysGoodsService.selectByType(typeId));
-    }
-
-    @GetMapping("/selectGoodsByPrice")
-    public HttpResult selectGoodsByPrice(@RequestParam double price) {
-        System.out.println(sysGoodsService.selectByPrice(price));
-        return HttpResult.ok(sysGoodsService.selectByPrice(price));
-    }
-
-    @GetMapping("/selectGoodsByMsg")
-    public HttpResult selectGoodsByMsg(@RequestParam String msg) {
-        System.out.println(sysGoodsService.selectByMsg(msg));
-        return HttpResult.ok(sysGoodsService.selectByMsg(msg));
-    }
-
     @GetMapping("/selectGoodsByAllMsg")
     public HttpResult selectGoodsByAllMsg(@RequestParam String isSale, @RequestParam String typeId, @RequestParam String price, @RequestParam String msg) {
 //        System.out.println(sysGoodsService.selectByAllMsg(isSale, typeId, price, msg));
@@ -79,12 +55,6 @@ public class SysGoodsController {
     public HttpResult deleteGoods(@RequestBody long id) {
         System.out.println(id);
         return HttpResult.ok(sysGoodsService.deleteGoodsById(id));
-    }
-
-    @GetMapping("/findAllType")
-    public HttpResult findAllType() {
-//        System.out.println(sysGoodsService.findAllType());
-        return HttpResult.ok(sysGoodsService.findAllType());
     }
 
     @PostMapping("/upload")
