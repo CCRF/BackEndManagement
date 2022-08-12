@@ -27,16 +27,6 @@
         INTO sys_goods(goods_id, goods_name, price, isSale, goods_remark, picture)
         VALUES(#{id},REPLACE(#{name},'"',''),#{price},#{isSale},REPLACE(#{remark},'"',''),REPLACE(#{picture},'"',''))
     </insert>
-    <insert id="insertGC">
-        INSERT
-        INTO sys_goods_category(id,goods_id,category_id)
-        VALUES(#{id},#{id},#{type})
-    </insert>
-    <update id="updateGCByGId">
-        UPDATE sys_goods_category
-        SET category_id=#{cid}
-        WHERE goods_id=#{gid}
-    </update>
     <update id="updateGoodsById">
         UPDATE sys_goods
         SET goods_name=#{name},price=#{price},isSale=#{isSale},goods_remark=#{remark},picture=#{picture}
@@ -47,44 +37,8 @@
         FROM sys_goods
         WHERE goods_id=#{value}
     </delete>
-    <delete id="deleteGCByGId">
-        DELETE
-        FROM sys_goods_category
-        WHERE goods_id=#{value}
-    </delete>
-    <delete id="deleteCategoryById">
-        DELETE
-        FROM sys_category
-        WHERE category_id=#{value}
-    </delete>
-    <delete id="deleteGCByCId">
-        DELETE
-        FROM sys_goods_category
-        WHERE category_id=#{value}
-    </delete>
     <select id="findAll" resultMap="BaseResultMap">
         <include refid="Base_Column_List"/>
-        ORDER BY g.goods_id
-    </select>
-    <select id="selectByIsSale" resultMap="BaseResultMap">
-        <include refid="Base_Column_List"/>
-        AND isSale=#{value}
-        ORDER BY g.goods_id
-    </select>
-    <select id="selectByType" resultMap="BaseResultMap">
-        <include refid="Base_Column_List"/>
-        AND c.category_id=#{value}
-        ORDER BY g.goods_id
-    </select>
-    <select id="selectByPrice" resultMap="BaseResultMap">
-        <include refid="Base_Column_List"/>
-        AND price &lt;= #{value}
-        ORDER BY g.goods_id
-    </select>
-    <select id="selectByMsg" resultMap="BaseResultMap">
-        <include refid="Base_Column_List"/>
-        AND CONCAT(IFNULL(g.goods_id,''), IFNULL(goods_name,''), IFNULL(goods_remark,''))
-        LIKE #{msg}
         ORDER BY g.goods_id
     </select>
     <select id="selectByAllMsg" resultMap="BaseResultMap">
@@ -93,12 +47,6 @@
         AND CONCAT(IFNULL(g.goods_id,''), IFNULL(goods_name,''), IFNULL(goods_remark,''))
         LIKE #{msg}
         ORDER BY g.goods_id
-    </select>
-
-    <select id="findAllType" resultMap="TypeResultMap">
-        SELECT *
-        FROM sys_category
-        ORDER BY category_id
     </select>
     <select id="selectById" resultMap="BaseResultMap">
         <include refid="Base_Column_List"/>

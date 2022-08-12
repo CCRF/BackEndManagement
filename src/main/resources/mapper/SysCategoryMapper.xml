@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.guet.backendmanagement.mapper.SysCategoryMapper">
+    <resultMap id="TypeResultMap" type="cn.edu.guet.backendmanagement.bean.SysCategory">
+        <id column="category_id" jdbcType="BIGINT" property="id"/>
+        <result column="category_name" jdbcType="VARCHAR" property="name"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="category_remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <insert id="insertCategory">
+        INSERT
+        INTO sys_category(category_id, category_name, nickname, category_remark)
+        VALUES(#{id},#{name},#{nickname},#{remark})
+    </insert>
+    <update id="updateCategoryById">
+        UPDATE sys_category
+        SET category_name=#{name}, nickname=#{nickname}, category_remark=#{remark}
+        WHERE category_id=#{id}
+    </update>
+    <delete id="deleteCategoryById">
+        DELETE
+        FROM sys_category
+        WHERE category_id=#{value}
+    </delete>
+    <select id="findAllType" resultMap="TypeResultMap">
+        SELECT *
+        FROM sys_category
+        ORDER BY category_id
+    </select>
+    <select id="selectCategoryByAllMsg" resultMap="TypeResultMap">
+        SELECT *
+        FROM sys_category
+        WHERE CONCAT(IFNULL(category_id,''), IFNULL(category_name,''), IFNULL(nickname,''), IFNULL(category_remark,''))
+        LIKE #{value}
+    </select>
+    <select id="selectCategoryById" resultMap="TypeResultMap">
+        SELECT *
+        FROM sys_category
+        WHERE category_id=#{value}
+    </select>
+
+</mapper>
