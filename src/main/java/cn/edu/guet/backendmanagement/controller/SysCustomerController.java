@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -32,27 +33,10 @@ public class SysCustomerController {
     @RequestMapping("/rank")
     public HttpResult getTop3(){
         List<SysCustomer> all = scs.getTop3();
-        SysCustomer[] s = new SysCustomer[3];
-
-        //1、找出前三名
-        s[0] = all.get(0);
-        s[1] = all.get(1);
-        s[2] = all.get(2);
-        Arrays.sort(s,(x, y)->{
+        Collections.sort(all,(x, y)->{
             return Double.compare(y.getSum(),x.getSum());
         });
 
-        for (int i = 3;i < all.size(); i ++){
-            SysCustomer t = all.get(i);
-            if (t.getSum() > s[0].getSum()){
-                s[0] = t;
-            }else if (t.getSum() > s[1].getSum()){
-                s[1] = t;
-            }else if (t.getSum() > s[2].getSum()){
-                s[2] = t;
-            }
-        }
-
-        return HttpResult.ok(s);
+        return HttpResult.ok(all);
     }
 }
