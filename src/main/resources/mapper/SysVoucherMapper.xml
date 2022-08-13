@@ -9,6 +9,7 @@
         <result column="voucher_dated" jdbcType="TINYINT" property="voucherDated"/>
         <result column="voucher_url" jdbcType="VARCHAR" property="voucherUrl"/>
         <result column="voucher_type" jdbcType="VARCHAR" property="voucherType"/>
+        <result column="voucher_rai" jdbcType="VARCHAR" property="voucherRai"/>
         <collection property="voucherLimit" select="getLimitGoods" column="voucher_id" ofType="cn.edu.guet.backendmanagement.bean.SysGoods">
             <id column="goods_id" jdbcType="BIGINT" property="id"/>
             <result column="goods_name" jdbcType="VARCHAR" property="name"/>

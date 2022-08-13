@@ -21,6 +21,8 @@ public class SysVoucher {
     private String voucherUrl;
     // 卡券类型
     private String voucherType;
+    // 卡券权益
+    private String voucherRai;
     // 限定卡券使用商品
     private List<SysGoods> voucherLimit;
 
@@ -30,13 +32,14 @@ public class SysVoucher {
     }
 
     public SysVoucher(String voucherId, String openId, String voucherName, String voucherDated,
-                      String voucherUrl, String voucherType, List<SysGoods> voucherLimit) {
+                      String voucherUrl, String voucherType, String voucherRai, List<SysGoods> voucherLimit) {
         this.voucherId = voucherId;
         this.openId = openId;
         this.voucherName = voucherName;
         this.voucherDated = voucherDated;
         this.voucherUrl = voucherUrl;
         this.voucherType = voucherType;
+        this.voucherRai = voucherRai;
         this.voucherLimit = voucherLimit;
     }
 
@@ -88,6 +91,14 @@ public class SysVoucher {
         this.voucherType = voucherType;
     }
 
+    public String getVoucherRai() {
+        return voucherRai;
+    }
+
+    public void setVoucherRai(String voucherRai) {
+        this.voucherRai = voucherRai;
+    }
+
     public List<SysGoods> getVoucherLimit() {
         return voucherLimit;
     }
@@ -101,12 +112,12 @@ public class SysVoucher {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SysVoucher that = (SysVoucher) o;
-        return Objects.equals(voucherId, that.voucherId) && Objects.equals(openId, that.openId) && Objects.equals(voucherName, that.voucherName) && Objects.equals(voucherDated, that.voucherDated) && Objects.equals(voucherUrl, that.voucherUrl) && Objects.equals(voucherType, that.voucherType) && Objects.equals(voucherLimit, that.voucherLimit);
+        return Objects.equals(voucherId, that.voucherId) && Objects.equals(openId, that.openId) && Objects.equals(voucherName, that.voucherName) && Objects.equals(voucherDated, that.voucherDated) && Objects.equals(voucherUrl, that.voucherUrl) && Objects.equals(voucherType, that.voucherType) && Objects.equals(voucherRai, that.voucherRai) && Objects.equals(voucherLimit, that.voucherLimit);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(voucherId, openId, voucherName, voucherDated, voucherUrl, voucherType, voucherLimit);
+        return Objects.hash(voucherId, openId, voucherName, voucherDated, voucherUrl, voucherType, voucherRai, voucherLimit);
     }
 
     @Override
@@ -118,6 +129,7 @@ public class SysVoucher {
                 ", voucherDated='" + voucherDated + '\'' +
                 ", voucherUrl='" + voucherUrl + '\'' +
                 ", voucherType='" + voucherType + '\'' +
+                ", voucherRai='" + voucherRai + '\'' +
                 ", voucherLimit=" + voucherLimit +
                 '}';
     }

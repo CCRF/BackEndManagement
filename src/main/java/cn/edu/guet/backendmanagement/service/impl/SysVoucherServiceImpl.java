@@ -1,9 +1,11 @@
 package cn.edu.guet.backendmanagement.service.impl;
 
+import cn.edu.guet.backendmanagement.bean.SysGoods;
 import cn.edu.guet.backendmanagement.bean.SysVoucher;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.mapper.SysVoucherMapper;
 import cn.edu.guet.backendmanagement.service.SysVoucherService;
+import com.alibaba.fastjson.support.hsf.HSFJSONUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +22,10 @@ public class SysVoucherServiceImpl implements SysVoucherService {
     @Autowired
     private SysVoucherMapper sysVoucherMapper;
 
-    @Override
-    public List<SysVoucher> getVoucherByOpenId(String openid) {
-        return sysVoucherMapper.getVoucherByOpenId(openid);
-    }
+//    @Override
+//    public List<SysVoucher> getVoucherByOpenId(String openid) {
+//        return sysVoucherMapper.getVoucherByOpenId(openid);
+//    }
 
     @Override
     public HttpResult addCustomerIntegralByOpenId(String openid, int integral) {
@@ -46,6 +48,29 @@ public class SysVoucherServiceImpl implements SysVoucherService {
     @Override
     public HttpResult getLimitGoodsByVoucherId(String openId) {
         List<SysVoucher> limitGoodsOfVoucher = sysVoucherMapper.getLimitGoodsByVoucherId(openId);
+//        for (SysVoucher voucher : limitGoodsOfVoucher) {
+//            String rai = voucher.getVoucherRai();
+//            for (SysGoods sysGoods : voucher.getVoucherLimit()) {
+//                if ("a".equals(rai)) {
+//
+//                } else if ("b".equals(rai)) {
+//
+//                } else if ("c".equals(rai)) {
+//
+//                }
+//                else if ("d".equals(rai)) {
+//
+//                }
+//                else if ("e".equals(rai)) {
+//
+//                }
+//                else if ("f".equals(rai)) {
+//
+//                } else {
+//
+//                }
+//            }
+//        }
         return HttpResult.ok(limitGoodsOfVoucher);
     }
 
@@ -60,5 +85,38 @@ public class SysVoucherServiceImpl implements SysVoucherService {
         return i>0 ? HttpResult.ok("用户签到状态更新成功") : HttpResult.error("用户签到状态更新失败");
     }
 
+    @Override
+    public HttpResult addCustomerCardVoucherByOpenId(SysVoucher voucher) {
+        int i =  sysVoucherMapper.addCustomerCardVoucherByOpenId(voucher);
+        if (i > 0) {
+            String voucherId = getJustAddVoucherIdByOpenIdAndDated(voucher.getOpenId(),voucher.getVoucherDated());
+            for (SysGoods sysGoods : voucher.getVoucherLimit()) {
+                if (sysGoods.getId() != null){
+                    addCardVoucherLimitGoods(voucherId,String.valueOf(sysGoods.getId()));
+                } else {
+                    System.out.println("卡券限定商品添加出错！");
+                    return null;
+                }
+            }
+            return HttpResult.ok("用户卡券添加成功");
+        } else return HttpResult.error("用户卡券添加失败");
+    }
+
+    @Override
+    public HttpResult deleteCustomerCardVoucherByOpenId(String voucherId) {
+        int i =  sysVoucherMapper.deleteCustomerCardVoucherByOpenId(voucherId);
+        return i>0 ? HttpResult.ok("用户卡券删除成功") : HttpResult.error("用户卡券删除失败");
+    }
+
+    @Override
+    public HttpResult addCardVoucherLimitGoods(String voucherId,String goodId) {
+        int i =  sysVoucherMapper.addCardVoucherLimitGoods(voucherId,goodId);
+        return i>0 ? HttpResult.ok("用户卡券限定商品添加成功") : HttpResult.error("用户卡券限定商品添加失败");
+    }
+
+    @Override
+    public String getJustAddVoucherIdByOpenIdAndDated(String openId,String dated) {
+        return sysVoucherMapper.getJustAddVoucherIdByOpenIdAndDated(openId,dated);
+    }
 
 }
