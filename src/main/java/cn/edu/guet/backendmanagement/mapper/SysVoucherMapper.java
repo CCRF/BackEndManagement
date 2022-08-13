@@ -2,9 +2,7 @@ package cn.edu.guet.backendmanagement.mapper;
 
 import cn.edu.guet.backendmanagement.bean.SysVoucher;
 import cn.edu.guet.backendmanagement.http.HttpResult;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -16,8 +14,8 @@ import java.util.List;
 @Mapper
 public interface SysVoucherMapper {
 
-    @Select("SELECT * FROM sys_voucher WHERE open_id = #{openid}")
-    List<SysVoucher> getVoucherByOpenId (String openid);
+//    @Select("SELECT * FROM sys_voucher WHERE open_id = #{openid}")
+//    List<SysVoucher> getVoucherByOpenId (String openid);
 
     List<SysVoucher> getLimitGoodsByVoucherId (String openId);
 
@@ -36,7 +34,17 @@ public interface SysVoucherMapper {
     @Update("UPDATE  sys_customer SET sign_in_status = #{signInStatus} WHERE open_id = #{openId}")
     int updateCustomerSignInStatus (String openId,String signInStatus);
 
+    @Insert("INSERT INTO sys_voucher (open_id,voucher_name,voucher_dated,voucher_url,voucher_type,voucher_rai)" +
+            "values(#{openId},#{voucherName},#{voucherDated},#{voucherUrl},#{voucherType},#{voucherRai})")
+    int addCustomerCardVoucherByOpenId (SysVoucher voucher);
 
+    @Delete("DELETE FROM sys_voucher WHERE voucher_id = #{voucherId}")
+    int deleteCustomerCardVoucherByOpenId (String voucherId);
 
+    @Insert("INSERT INTO sys_limit_goods values(#{voucherId},#{goodId})")
+    int addCardVoucherLimitGoods (String voucherId,String goodId);
+
+    @Select("SELECT voucher_id FROM sys_voucher WHERE open_id = #{openId} AND voucher_dated = #{dated}")
+    String getJustAddVoucherIdByOpenIdAndDated(String openId,String dated);
 
 }

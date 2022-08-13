@@ -21,11 +21,11 @@ public class WXSysVoucherController {
     @Autowired
     private SysVoucherService sysVoucherService;
 
-    @GetMapping("/getVoucher")
-    public List<SysVoucher> getVoucherByOpenId (String openId){
-        System.out.println("传回来的openId" + openId);
-        return sysVoucherService.getVoucherByOpenId(openId);
-    }
+//    @GetMapping("/getVoucher")
+//    public List<SysVoucher> getVoucherByOpenId (String openId){
+//        System.out.println("传回来的openId" + openId);
+//        return sysVoucherService.getVoucherByOpenId(openId);
+//    }
 
     @PostMapping("/addCustomerIntegral")
     public HttpResult addCustomerIntegralByOpenId (String openId, int integral){
@@ -68,4 +68,18 @@ public class WXSysVoucherController {
         return sysVoucherService.updateCustomerSignInStatus(openId,signInStatus);
 //        return null;
     }
+
+    @PostMapping("/addCustomerCardVoucher")
+    public HttpResult addCustomerCardVoucherByOpenId (@RequestBody SysVoucher voucher) {
+        System.out.println("addCustomerCardVoucher" + "------" + voucher.toString());
+        return sysVoucherService.addCustomerCardVoucherByOpenId(voucher);
+//        return null;
+    }
+
+    @PostMapping("/deleteCustomerCardVoucher")
+    public HttpResult deleteCustomerCardVoucherByOpenId (String voucherId) {
+        System.out.println("deleteCustomerCardVoucher啊啊啊啊啊啊啊" + voucherId);
+        return sysVoucherService.deleteCustomerCardVoucherByOpenId(voucherId);
+    }
+
 }
