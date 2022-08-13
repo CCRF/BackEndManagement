@@ -82,7 +82,7 @@ public class SysGoodsServiceImpl implements SysGoodsService {
     @Override
     public String uploadImage(MultipartFile image, String type) throws IOException {
         System.out.println("开始上传" + type);
-        String filePath = "user/local/img/" + type + "/";
+        String filePath = "/usr/local/img/" + type + "/";
         String s = linuxLogin.uploadVideo(image, filePath);
         if (s != null){
             System.out.println(s);

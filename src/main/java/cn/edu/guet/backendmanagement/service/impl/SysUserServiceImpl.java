@@ -165,7 +165,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public boolean deleteImg(String path) {
         File file = new File("/usr/local/img/avatar/"+imgName(path));
-        System.out.println("删除的路径"+file);
+        System.out.println("删除的路径"+file.getAbsolutePath());
         if (file.isFile()){
             file.delete();
             return true;
