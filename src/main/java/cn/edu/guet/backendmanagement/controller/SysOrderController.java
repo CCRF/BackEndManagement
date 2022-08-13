@@ -72,16 +72,17 @@ public class SysOrderController {
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:order:add')")
     public HttpResult insert(@RequestBody SysOrder order) {
-        Integer insert;
-//        System.out.println(order + "______________________");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
-        order.setStartTime(simpleDateFormat.format(new Date()));
-        insert = sysOrderService.insert(order);
-        if (insert == 1)
-            if (order.getCustomerId().compareTo(new BigInteger("1"))==0)
-                return HttpResult.ok(sysOrderService.getCurrentOrder());
-            else
-                return HttpResult.ok(sysOrderService.getHistoryOrder());
-        else return HttpResult.error("添加失败！");
+//        Integer insert;
+////        System.out.println(order + "______________________");
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+//        order.setStartTime(simpleDateFormat.format(new Date()));
+//        insert = sysOrderService.insert(order);
+//        if (insert == 1)
+//            if (order.getCustomerId().compareTo(new BigInteger("1"))==0)
+//                return HttpResult.ok(sysOrderService.getCurrentOrder());
+//            else
+//                return HttpResult.ok(sysOrderService.getHistoryOrder());
+//        else return HttpResult.error("添加失败！");
+        return null;
     }
 }

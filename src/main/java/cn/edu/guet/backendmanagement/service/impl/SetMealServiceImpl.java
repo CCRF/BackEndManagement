@@ -111,7 +111,8 @@ public class SetMealServiceImpl implements SetMealService {
         String path = "/usr/local/img/setmeal/";
 //        String path = "D:/test/";
         File file1 = new File(path+file);
-        System.out.println(file1);
+        System.out.println("修改后删除的文件夹：" + path + file);
+        System.out.println("----------------------"+file1.getAbsolutePath() + "  !!----");
         return file1.delete();
     }
 
