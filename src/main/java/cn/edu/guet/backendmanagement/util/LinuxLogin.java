@@ -63,7 +63,7 @@ public class LinuxLogin {
         for (int i = 0; i < arrays.length; i++) {
             if (arrays[i].isFile()){
                 String name = arrays[i].getName();
-                String NewName = path+name;
+                String NewName = name;
                 fileLists[i] = NewName;
             }else if (arrays[i].isDirectory()){
                 FindImageList(arrays[i].getPath());//递归判断是否还有文件夹

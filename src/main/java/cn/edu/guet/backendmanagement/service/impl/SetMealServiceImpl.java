@@ -108,7 +108,6 @@ public class SetMealServiceImpl implements SetMealService {
 
     @Override
     public boolean deleteFile(String file) {
-//        String path = "https://g1.glypro19.com/img/setMeal/";
         String path = "/usr/local/img/setmeal/";
 //        String path = "D:/test/";
         File file1 = new File(path+file);
