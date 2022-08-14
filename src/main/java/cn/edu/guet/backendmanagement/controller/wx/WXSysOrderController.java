@@ -1,7 +1,9 @@
 package cn.edu.guet.backendmanagement.controller.wx;
 
+import cn.edu.guet.backendmanagement.bean.SysOrder;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SysOrderService;
+import cn.edu.guet.backendmanagement.service.SysWxOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +33,16 @@ public class WXSysOrderController {
     @GetMapping("/getHistoryOrder")
     public HttpResult getHistoryOrder() {
         return HttpResult.ok(sysOrderService.getHistoryOrder());
+    }
+
+
+    @Autowired
+    private SysWxOrderService sysWxOrderService;
+
+    //微信小程序退单
+    @PostMapping("/moderOrderState")
+    public HttpResult moderOrderState(String id,int state){
+        return sysWxOrderService.moderOrderState(id,state);
     }
 
 }
