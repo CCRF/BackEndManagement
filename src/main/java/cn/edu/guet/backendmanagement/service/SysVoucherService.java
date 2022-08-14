@@ -1,5 +1,6 @@
 package cn.edu.guet.backendmanagement.service;
 
+import cn.edu.guet.backendmanagement.bean.SysOrder;
 import cn.edu.guet.backendmanagement.bean.SysVoucher;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 
@@ -88,5 +89,22 @@ public interface SysVoucherService {
      * @return
      */
     String getJustAddVoucherIdByOpenIdAndDated (String openId,String dated);
+
+
+    /**
+     * 根据open_id修改用户会员状态
+     * @param openId
+     * @param memberStatus
+     * @param memberDated
+     * @return
+     */
+    HttpResult updateCustomerMemberStatus (String openId,String memberStatus,String memberDated);
+
+    /**
+     * 将订单信息添加到订单表
+     * @param order
+     * @return
+     */
+    HttpResult addCustomerOrder (SysOrder order);
 
 }
