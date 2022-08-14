@@ -1,5 +1,6 @@
 package cn.edu.guet.backendmanagement.controller.wx;
 
+import cn.edu.guet.backendmanagement.bean.SysOrder;
 import cn.edu.guet.backendmanagement.bean.SysVoucher;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SysVoucherService;
@@ -20,12 +21,6 @@ public class WXSysVoucherController {
 
     @Autowired
     private SysVoucherService sysVoucherService;
-
-//    @GetMapping("/getVoucher")
-//    public List<SysVoucher> getVoucherByOpenId (String openId){
-//        System.out.println("传回来的openId" + openId);
-//        return sysVoucherService.getVoucherByOpenId(openId);
-//    }
 
     @PostMapping("/addCustomerIntegral")
     public HttpResult addCustomerIntegralByOpenId (String openId, int integral){
@@ -66,20 +61,30 @@ public class WXSysVoucherController {
 
         System.out.println("更新签到状态，传回来的数据" + openId + "-----" + signInStatus);
         return sysVoucherService.updateCustomerSignInStatus(openId,signInStatus);
-//        return null;
     }
 
     @PostMapping("/addCustomerCardVoucher")
     public HttpResult addCustomerCardVoucherByOpenId (@RequestBody SysVoucher voucher) {
         System.out.println("addCustomerCardVoucher" + "------" + voucher.toString());
         return sysVoucherService.addCustomerCardVoucherByOpenId(voucher);
-//        return null;
     }
 
     @PostMapping("/deleteCustomerCardVoucher")
     public HttpResult deleteCustomerCardVoucherByOpenId (String voucherId) {
         System.out.println("deleteCustomerCardVoucher啊啊啊啊啊啊啊" + voucherId);
         return sysVoucherService.deleteCustomerCardVoucherByOpenId(voucherId);
+    }
+
+    @PostMapping("/updateCustomerMemberStatus")
+    public HttpResult updateCustomerMemberStatus (String openId,String memberStatus,String memberDated) {
+        System.out.println(memberStatus + " updateCustomerMemberStatus嘿嘿 " + openId + "====" +  memberDated);
+        return sysVoucherService.updateCustomerMemberStatus(openId,memberStatus,memberDated);
+    }
+
+    @PostMapping("/addCustomerOrder")
+    public HttpResult addCustomerOrder (@RequestBody SysOrder order) {
+        System.out.println("addCustomerOrder很好a" + order);
+        return sysVoucherService.addCustomerOrder(order);
     }
 
 }

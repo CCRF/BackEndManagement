@@ -1,5 +1,6 @@
 package cn.edu.guet.backendmanagement.mapper;
 
+import cn.edu.guet.backendmanagement.bean.SysOrder;
 import cn.edu.guet.backendmanagement.bean.SysVoucher;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import org.apache.ibatis.annotations.*;
@@ -13,9 +14,6 @@ import java.util.List;
  */
 @Mapper
 public interface SysVoucherMapper {
-
-//    @Select("SELECT * FROM sys_voucher WHERE open_id = #{openid}")
-//    List<SysVoucher> getVoucherByOpenId (String openid);
 
     List<SysVoucher> getLimitGoodsByVoucherId (String openId);
 
@@ -46,5 +44,13 @@ public interface SysVoucherMapper {
 
     @Select("SELECT voucher_id FROM sys_voucher WHERE open_id = #{openId} AND voucher_dated = #{dated}")
     String getJustAddVoucherIdByOpenIdAndDated(String openId,String dated);
+
+    @Update("UPDATE sys_customer " +
+            "SET is_member = #{memberStatus},expire_time = #{memberDated} WHERE open_id = #{openId}")
+    int updateCustomerMemberStatus (String openId,String memberStatus,String memberDated);
+
+    @Insert("INSERT INTO sys_order (start_time,list,amount,order_status,message,customer_id) \n" +
+            "values(#{startTime},#{list},#{amount},#{orderStatus},#{message},#{customerId})")
+    int addCustomerOrder (SysOrder order);
 
 }

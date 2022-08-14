@@ -1,6 +1,7 @@
 package cn.edu.guet.backendmanagement.service.impl;
 
 import cn.edu.guet.backendmanagement.bean.SysGoods;
+import cn.edu.guet.backendmanagement.bean.SysOrder;
 import cn.edu.guet.backendmanagement.bean.SysVoucher;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.mapper.SysVoucherMapper;
@@ -117,6 +118,18 @@ public class SysVoucherServiceImpl implements SysVoucherService {
     @Override
     public String getJustAddVoucherIdByOpenIdAndDated(String openId,String dated) {
         return sysVoucherMapper.getJustAddVoucherIdByOpenIdAndDated(openId,dated);
+    }
+
+    @Override
+    public HttpResult updateCustomerMemberStatus(String openId,String memberStatus,String memberDated) {
+        int i =  sysVoucherMapper.updateCustomerMemberStatus(openId,memberStatus,memberDated);
+        return i>0 ? HttpResult.ok("用户会员状态更新成功") : HttpResult.error("用户会员状态更新失败");
+    }
+
+    @Override
+    public HttpResult addCustomerOrder(SysOrder order) {
+        int i =  sysVoucherMapper.addCustomerOrder(order);
+        return i>0 ? HttpResult.ok("用户订单添加成功") : HttpResult.error("用户订单添加失败");
     }
 
 }
