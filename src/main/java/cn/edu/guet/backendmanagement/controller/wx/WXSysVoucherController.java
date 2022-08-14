@@ -22,12 +22,6 @@ public class WXSysVoucherController {
     @Autowired
     private SysVoucherService sysVoucherService;
 
-//    @GetMapping("/getVoucher")
-//    public List<SysVoucher> getVoucherByOpenId (String openId){
-//        System.out.println("传回来的openId" + openId);
-//        return sysVoucherService.getVoucherByOpenId(openId);
-//    }
-
     @PostMapping("/addCustomerIntegral")
     public HttpResult addCustomerIntegralByOpenId (String openId, int integral){
         return sysVoucherService.addCustomerIntegralByOpenId(openId,integral);
@@ -90,8 +84,7 @@ public class WXSysVoucherController {
     @PostMapping("/addCustomerOrder")
     public HttpResult addCustomerOrder (@RequestBody SysOrder order) {
         System.out.println("addCustomerOrder很好a" + order);
-//        return sysVoucherService.addCustomerOrder(order);
-        return null;
+        return sysVoucherService.addCustomerOrder(order);
     }
 
 }
