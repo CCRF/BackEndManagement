@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.guet.backendmanagement.mapper.SysWxOrderMapper">
+
+
+<!--    <select id="getCurrentOrder" parameterType="java.util.List" >-->
+<!--        SELECT * FROM sys_order where order_status=0 ORDER BY start_time desc-->
+<!--    </select>-->
+
+<!--    <select id="getHistoryOrder" parameterType="java.util.List">-->
+<!--        SELECT * FROM sys_order where order_status in(-1,1) ORDER BY start_time desc-->
+<!--    </select>-->
+
+
+
+</mapper>

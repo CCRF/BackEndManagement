@@ -1,10 +1,13 @@
 package cn.edu.guet.backendmanagement.service.impl;
 
+import cn.edu.guet.backendmanagement.bean.SysOrder;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SysWxOrderService;
 import cn.edu.guet.backendmanagement.mapper.SysWxOrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author HJK
@@ -22,6 +25,18 @@ public class SysWxOrderServiceImpl implements SysWxOrderService{
         int i=sysWxOrderMapper.moderOrderState(id,state);
         System.out.println("影响了" + i + "个");
         return i>0 ? HttpResult.ok("退单成功") : HttpResult.ok("退单失败了");
+    }
+
+    @Override
+    public List<SysOrder> getCurrentOrder() {
+        List<SysOrder> currentOrder = sysWxOrderMapper.getCurrentOrder();
+        return currentOrder;
+    }
+
+    @Override
+    public List<SysOrder> getHistoryOrder() {
+        List<SysOrder> historyOrder = sysWxOrderMapper.getHistoryOrder();
+        return historyOrder;
     }
 
 }
