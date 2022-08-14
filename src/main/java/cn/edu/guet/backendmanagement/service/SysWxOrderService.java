@@ -1,6 +1,9 @@
 package cn.edu.guet.backendmanagement.service;
 
+import cn.edu.guet.backendmanagement.bean.SysOrder;
 import cn.edu.guet.backendmanagement.http.HttpResult;
+
+import java.util.List;
 
 /**
  * @author HJK
@@ -9,6 +12,9 @@ import cn.edu.guet.backendmanagement.http.HttpResult;
  */
 
 public interface SysWxOrderService {
+
+    List<SysOrder> getCurrentOrder();
+    List<SysOrder> getHistoryOrder();
 
     HttpResult moderOrderState(String id,int state);
 

@@ -21,23 +21,22 @@ public class WXSysOrderController {
 
 
     @Autowired
-    private SysOrderService sysOrderService;
+    private SysWxOrderService sysWxOrderService;
 
     //微信小程序的查询当前订单，
     @GetMapping("/getCurrentOrder")
     public HttpResult getCurrentOrder() {
-        return HttpResult.ok(sysOrderService.getCurrentOrder());
+        return HttpResult.ok(sysWxOrderService.getCurrentOrder());
     }
 
     //微信小程序查询历史订单
     @GetMapping("/getHistoryOrder")
     public HttpResult getHistoryOrder() {
-        return HttpResult.ok(sysOrderService.getHistoryOrder());
+        return HttpResult.ok(sysWxOrderService.getHistoryOrder());
     }
 
 
-    @Autowired
-    private SysWxOrderService sysWxOrderService;
+
 
     //微信小程序退单
     @PostMapping("/moderOrderState")
