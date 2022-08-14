@@ -1,13 +1,15 @@
 package cn.edu.guet.backendmanagement.service.impl;
 
-import cn.edu.guet.backendmanagement.bean.SysCategory;
 import cn.edu.guet.backendmanagement.bean.SysGoods;
+import cn.edu.guet.backendmanagement.mapper.SysGoodsCategoryMapper;
 import cn.edu.guet.backendmanagement.mapper.SysGoodsMapper;
 import cn.edu.guet.backendmanagement.service.SysGoodsService;
 import cn.edu.guet.backendmanagement.util.LinuxLogin;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -23,6 +25,8 @@ public class SysGoodsServiceImpl implements SysGoodsService {
     @Autowired
     private SysGoodsMapper sysGoodsMapper;
     @Autowired
+    private SysGoodsCategoryMapper sysGoodsCategoryMapper;
+    @Autowired
     private LinuxLogin linuxLogin;
 
     @Override
@@ -33,27 +37,6 @@ public class SysGoodsServiceImpl implements SysGoodsService {
     @Override
     public SysGoods selectById(long id) {
         return sysGoodsMapper.selectById(id);
-    }
-
-    @Override
-    public List<SysGoods> selectByIsSale(int isSale) {
-        return sysGoodsMapper.selectByIsSale(isSale);
-    }
-
-    @Override
-    public List<SysGoods> selectByType(long typeId) {
-        return sysGoodsMapper.selectByType(typeId);
-    }
-
-    @Override
-    public List<SysGoods> selectByPrice(double price) {
-        return sysGoodsMapper.selectByPrice(price);
-    }
-
-    @Override
-    public List<SysGoods> selectByMsg(String msg) {
-        msg = "%" + msg + "%";
-        return sysGoodsMapper.selectByMsg(msg);
     }
 
     @Override
@@ -69,46 +52,37 @@ public class SysGoodsServiceImpl implements SysGoodsService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRED)
     public boolean insertGoods(ObjectNode json) {
 //        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@"+json.get("id").toString()+ json.get("name").toString()+ json.get("price").toString()+ json.get("isSale").toString()+ json.get("picture").toString()+ json.get("remark").toString());
         sysGoodsMapper.insertGoods(json.get("id").toString(), json.get("name").toString(), json.get("price").toString(), json.get("isSale").toString(), json.get("picture").toString(), json.get("remark").toString());
-        sysGoodsMapper.insertGC(json.get("id").toString(), json.get("id").toString(), json.get("type").toString());
+        sysGoodsCategoryMapper.insertGC(json.get("id").toString(), json.get("id").toString(), json.get("type").toString());
         return true;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRED)
     public boolean updateGoods(SysGoods sysGoods) {
         System.out.println(sysGoods.toString());
         long id = sysGoods.getId();
         long type = sysGoods.getType().get(0).getId();
         sysGoodsMapper.updateGoodsById(id, sysGoods.getName(), sysGoods.getPrice(), sysGoods.getIsSale(), sysGoods.getPicture(), sysGoods.getRemark());
-        sysGoodsMapper.updateGCByGId(id, type);
+        sysGoodsCategoryMapper.updateGCByGId(id, type);
         return true;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRED)
     public boolean deleteGoodsById(long id) {
-        sysGoodsMapper.deleteGCByGId(id);
+        sysGoodsCategoryMapper.deleteGCByGId(id);
         sysGoodsMapper.deleteGoodsById(id);
-        return true;
-    }
-
-    @Override
-    public List<SysCategory> findAllType() {
-        return sysGoodsMapper.findAllType();
-    }
-
-    @Override
-    public boolean deleteCategoryById(long id) {
-        sysGoodsMapper.deleteGCByCId(id);
-        sysGoodsMapper.deleteCategoryById(id);
         return true;
     }
 
     @Override
     public String uploadImage(MultipartFile image, String type) throws IOException {
         System.out.println("开始上传" + type);
-        String filePath = "user/local/img/" + type + "/";
+        String filePath = "/usr/local/img/" + type + "/";
         String s = linuxLogin.uploadVideo(image, filePath);
         if (s != null){
             System.out.println(s);

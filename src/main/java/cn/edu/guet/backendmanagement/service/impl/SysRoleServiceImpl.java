@@ -144,8 +144,20 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public List<SysRole> searchMsg(String msg) {
-        return sysRoleMapper.searchMsg(msg);
+    public PageBean<SysRole> searchMsg(String msg, int currentPage, int pageSize) {
+        int begin = (currentPage - 1) * pageSize;
+
+        int size = pageSize;
+        List<SysRole> rows = sysRoleMapper.searchMsg(msg, begin, size);
+
+        int totalCount = sysRoleMapper.searchTotalCount(msg);
+
+        PageBean<SysRole> pageBean = new PageBean<>();
+
+        pageBean.setRows(rows);
+        pageBean.setTotalCount(totalCount);
+
+        return pageBean;
     }
 
     @Override

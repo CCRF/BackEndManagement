@@ -4,6 +4,7 @@ import cn.edu.guet.backendmanagement.bean.SetMeal;
 import cn.edu.guet.backendmanagement.bean.SysOrder;
 import cn.edu.guet.backendmanagement.http.HttpResult;
 import cn.edu.guet.backendmanagement.service.SetMealService;
+import cn.edu.guet.backendmanagement.service.SysCategoryService;
 import cn.edu.guet.backendmanagement.service.SysGoodsService;
 import cn.edu.guet.backendmanagement.service.SysOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class WXSysGoodsController {
 
     @Autowired
     private SysGoodsService sysGoodsService;
+    @Autowired
+    private SysCategoryService sysCategoryService;
 
     //微信小程序的查询所有餐品，餐品类型，
     @GetMapping("/findAllGoods")
@@ -38,7 +41,7 @@ public class WXSysGoodsController {
 
     @GetMapping("/findAllType")
     public HttpResult findAllType() {
-        return HttpResult.ok(sysGoodsService.findAllType());
+        return HttpResult.ok(sysCategoryService.findAllType());
     }
 
     //微信小程序查询所有套餐
@@ -58,17 +61,18 @@ public class WXSysGoodsController {
 
     @PostMapping("/insert")
     public HttpResult insert(@RequestBody SysOrder order) {
-        Integer insert;
-//        System.out.println(order + "______________________");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
-        order.setStartTime(simpleDateFormat.format(new Date()));
-        insert = sysOrderService.insert(order);
-        if (insert == 1)
-            if (order.getCustomerId().compareTo(new BigInteger("1")) == 0)
-                return HttpResult.ok(sysOrderService.getCurrentOrder());
-            else
-                return HttpResult.ok(sysOrderService.getHistoryOrder());
-        else return HttpResult.error("添加失败！");
+//        Integer insert;
+////        System.out.println(order + "______________________");
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+//        order.setStartTime(simpleDateFormat.format(new Date()));
+//        insert = sysOrderService.insert(order);
+//        if (insert == 1)
+//            if (order.getCustomerId().compareTo(new BigInteger("1")) == 0)
+//                return HttpResult.ok(sysOrderService.getCurrentOrder());
+//            else
+//                return HttpResult.ok(sysOrderService.getHistoryOrder());
+//        else return HttpResult.error("添加失败！");
+        return null;
     }
 
 }

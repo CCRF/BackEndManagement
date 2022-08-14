@@ -39,12 +39,12 @@
           and rm.menu_id = m.id
           and m.del_flag != -1
     </select>
-
-
     <select id="searchMsg" resultType="cn.edu.guet.backendmanagement.bean.SysMenu">
         select *
         from sys_menu
         where CONCAT(IFNULL(name, ''))
-                  LIKE #{msg}
+            LIKE #{msg}
+          and del_flag != -1
     </select>
+
 </mapper>

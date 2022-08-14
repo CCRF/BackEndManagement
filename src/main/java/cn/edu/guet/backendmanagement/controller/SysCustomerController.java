@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -28,42 +30,13 @@ public class SysCustomerController {
         return HttpResult.ok(list);
     }
 
-    @RequestMapping(value = "/upload",method = RequestMethod.POST)
-    public HttpResult upload(@RequestParam("name") String name,
-                             HttpServletRequest request){
-        System.out.println("upload....");
-        System.out.println(name);
+    @RequestMapping("/rank")
+    public HttpResult getTop3(){
+        List<SysCustomer> all = scs.getTop3();
+        Collections.sort(all,(x, y)->{
+            return Double.compare(y.getSum(),x.getSum());
+        });
 
-//        String originalFilename = file.getOriginalFilename();
-//        String type = originalFilename.substring(originalFilename.lastIndexOf(".")+1);
-//        String filePath = "/usr/local/img/"; // 存储到linux这个目录下
-//
-//        // 先存储到磁盘
-//        File uploadParentFile = new File(filePath);
-//        if (!uploadParentFile.exists()){
-//            uploadParentFile.mkdirs();
-//        }
-//
-//        // 定义一个文件唯一标识码
-////        String uuid = IdUtil.fastSimpleUUID();
-//        String saveUrl = filePath + originalFilename;
-//        System.out.println("保存的路径 " + saveUrl);
-//        File uploadFile = new File(saveUrl);
-//
-//        try {
-//            file.transferTo(uploadFile);
-//            System.out.println("上传成功");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        return null;
+        return HttpResult.ok(all);
     }
-
-    @RequestMapping(value = "/test")
-    public HttpResult test(){
-        System.out.println("test....");
-
-        return null;
-    }
-
 }

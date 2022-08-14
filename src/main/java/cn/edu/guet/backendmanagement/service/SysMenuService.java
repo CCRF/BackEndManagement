@@ -11,8 +11,9 @@ import java.util.List;
 /**
  * 菜单管理
  *
- * @Author Liwei
- * @Date 2021-08-14 18:05
+ * @version 1.0
+ * @Author zhh
+ * @Date 2022-08-10 17:50
  */
 public interface SysMenuService {
     /**
@@ -31,8 +32,6 @@ public interface SysMenuService {
      * @return
      */
     List<SysMenu> findTree(String userName, int menuType);
-
-    PageBean<SysMenu> findAll(int page, int size);
 
     List<SysMenu> searchMsg(String msg);
 

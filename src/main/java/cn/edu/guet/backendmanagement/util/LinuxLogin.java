@@ -10,8 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Author yj
- * @Date    2022/8/8 20:10
- * @version: 1.3
+ * @Date    2022/8/11 19：22
+ * @version: 1.5
  */
 @Component
 public class LinuxLogin {
@@ -25,18 +25,17 @@ public class LinuxLogin {
     public String uploadVideo(MultipartFile file,String filePath) {
         String originalFilename = file.getOriginalFilename();
         String fileName = originalFilename.substring(0, originalFilename.lastIndexOf('.'));
-        System.out.println("文件名字为："+fileName);
+        System.out.println("文件名字为：" + fileName);
         String type = originalFilename.substring(originalFilename.lastIndexOf('.') + 1);//png、jpg
         System.out.println("type = " + type);
 
         //存放目录
         File upload = new File(filePath);
-        if (!upload.exists()){
+        if (!upload.exists()) {
             upload.mkdirs();
         }
-
-        String uuid = "123456";
-        String saveUrl = filePath+fileName+uuid+"."+type;
+        String salt = PasswordUtils.getSalt();
+        String saveUrl = filePath + salt + "." + type;
         System.out.println("保存的路径" + saveUrl);
 
         File uploadFile = new File(saveUrl);
@@ -47,7 +46,7 @@ public class LinuxLogin {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return saveUrl;
+        return salt + "." + type;
     }
 
     /**
@@ -64,8 +63,7 @@ public class LinuxLogin {
         for (int i = 0; i < arrays.length; i++) {
             if (arrays[i].isFile()){
                 String name = arrays[i].getName();
-                String NewName = path+name;
-                System.out.println(NewName);
+                String NewName = name;
                 fileLists[i] = NewName;
             }else if (arrays[i].isDirectory()){
                 FindImageList(arrays[i].getPath());//递归判断是否还有文件夹

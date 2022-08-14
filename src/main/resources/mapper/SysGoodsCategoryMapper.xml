@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.guet.backendmanagement.mapper.SysGoodsCategoryMapper">
+    <insert id="insertGC">
+        INSERT
+        INTO sys_goods_category(id,goods_id,category_id)
+        VALUES(#{id},#{id},#{type})
+    </insert>
+    <update id="updateGCByGId">
+        UPDATE sys_goods_category
+        SET category_id=#{cid}
+        WHERE goods_id=#{gid}
+    </update>
+    <delete id="deleteGCByGId">
+        DELETE
+        FROM sys_goods_category
+        WHERE goods_id=#{value}
+    </delete>
+    <delete id="deleteGCByCId">
+        DELETE
+        FROM sys_goods_category
+        WHERE category_id=#{value}
+    </delete>
+</mapper>

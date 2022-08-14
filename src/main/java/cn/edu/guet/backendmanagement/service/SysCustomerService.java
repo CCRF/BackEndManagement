@@ -10,6 +10,8 @@ public interface SysCustomerService {
 
     List<SysCustomer> getAllCustomer();
 
+    List<SysCustomer> getTop3();
+
 
     //===========================增、删、改================================
     int addCustomer(SysCustomer customer);

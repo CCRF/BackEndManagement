@@ -24,6 +24,11 @@ public class SysCustomerServiceImpl implements SysCustomerService {
         return scm.getAllCustomer();
     }
 
+    @Override
+    public List<SysCustomer> getTop3() {
+        return getAllCustomer();
+    }
+
 
     //===========================增、删、改================================
     @Override

@@ -18,8 +18,8 @@ import java.util.List;
 
 /**
  * @Author yj
- * @Date    2022/8/10 23:30
- * @version: 1.4
+ * @Date    2022/8/11 19：22
+ * @version: 1.5
  */
 @Service
 public class SetMealServiceImpl implements SetMealService {
@@ -39,7 +39,8 @@ public class SetMealServiceImpl implements SetMealService {
     public HttpResult deleteById(Integer id,String imageUrl) {
         int i = setMealMapper.deleteById(id);
         //删除套餐图片
-        File file = new File(imageUrl);
+        File file = new File("/usr/local/img/setmeal/"+imageUrl);
+//        File file = new File("D:/test/"+imageUrl);
         if (file.isFile()){
             System.out.println("删除套餐图片");
             file.delete();
@@ -100,8 +101,19 @@ public class SetMealServiceImpl implements SetMealService {
     public String[] FindImageList() {
         System.out.println("方法被调用了");
         String path = "/usr/local/img/setmeal/";
+//        String path = "D:/test/";
         String[] list = linuxLogin.FindImageList(path);
         return list;
+    }
+
+    @Override
+    public boolean deleteFile(String file) {
+        String path = "/usr/local/img/setmeal/";
+//        String path = "D:/test/";
+        File file1 = new File(path+file);
+        System.out.println("修改后删除的文件夹：" + path + file);
+        System.out.println("----------------------"+file1.getAbsolutePath() + "  !!----");
+        return file1.delete();
     }
 
 
@@ -109,6 +121,7 @@ public class SetMealServiceImpl implements SetMealService {
     public String uploadImage(MultipartFile image) throws IOException {
         System.out.println("开始上传");
         String filePath = "/usr/local/img/setmeal/";
+//        String filePath = "D:/test/";
         String s = linuxLogin.uploadVideo(image,filePath);
         if (s!=null){
             System.out.println(s);

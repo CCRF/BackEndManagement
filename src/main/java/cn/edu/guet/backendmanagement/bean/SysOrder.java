@@ -21,13 +21,13 @@ public class SysOrder implements Serializable {
 
     private String message;
 
-    private BigInteger customerId;
+    private String customerId;
 
-    public BigInteger getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public SysOrder setCustomerId(BigInteger customerId) {
+    public SysOrder setCustomerId(String customerId) {
         this.customerId = customerId;
         return this;
     }

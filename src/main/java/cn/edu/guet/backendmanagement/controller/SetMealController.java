@@ -14,8 +14,8 @@ import java.util.List;
 
 /**
  * @Author yj
- * @Date    2022/8/10 23:30
- * @version: 1.4
+ * @Date    2022/8/11 19：22
+ * @version: 1.5
  */
 @RestController
 @RequestMapping("/setMeal")
@@ -35,8 +35,6 @@ public class SetMealController {
     @PostMapping("/deleteById")
     @PreAuthorize("hasAuthority('sys:setmeal:delete')")
     public HttpResult deleteById(@RequestParam("id") Integer id, @RequestParam("imageUrl") String imageUrl){
-//        System.out.println(id);
-//        System.out.println(imageUrl);
         return service.deleteById(id,imageUrl);
     }
 
@@ -88,5 +86,16 @@ public class SetMealController {
     public HttpResult FindImageList(){
         String[] list = service.FindImageList();
         return HttpResult.ok(list);
+    }
+
+    @PostMapping("/deleteFile")
+    public HttpResult deleteFile(@RequestBody String file){
+        System.out.println("文件路径为"+file);
+        boolean b = service.deleteFile(file);
+        if (b){
+            return HttpResult.ok("删除成功");
+        }else {
+            return HttpResult.error("删除失败");
+        }
     }
 }
